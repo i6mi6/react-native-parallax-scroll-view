@@ -1,6 +1,6 @@
 {
   "name": "react-native-parallax-listview",
-  "version": "1.0.0",
+  "version": "0.16.0",
   "description": "ListView with parallax header support",
   "main": "index.js",
   "files": [
