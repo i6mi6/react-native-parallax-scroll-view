@@ -21,7 +21,7 @@ const IPropTypes = {
   parallaxHeaderHeight: number.isRequired,
   renderStickyHeader: func,
   renderBackground: func,
-  renderParallaxHeader: func,
+  renderParallaxHeader: func.isRequired,
   rowHeight: number,
   stickyHeaderHeight: number,
   style: any
@@ -103,7 +103,7 @@ class ParallaxListView extends Component {
                                                extrapolate: 'extend'
                                              })
                                            }]}>
-                          { renderParallaxHeader() }
+                          { renderParallaxHeader && renderParallaxHeader() }
                       </Animated.View>
                     </View>
                   )}
