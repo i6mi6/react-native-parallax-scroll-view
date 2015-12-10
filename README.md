@@ -28,10 +28,11 @@ The `ParallaxListView` component adds a few additional properties, as described 
 
 | Property | Type | Required | Default | Description |
 | -------- | ---- | -------- | ------- | ----------- |
-| `backgroundColor` | `string` | No | `'#000'` | This is the background color of sticky header, and also used as parallax header background color if `renderBackground` is not provided. |
 | `rowHeight` | `number` | No  | N/A | If the content is short, the `rowHeight` will be used to calculate bottom padding to allow parallax header to scroll all the way up. It is recommended that you set this fixed height. |
+| `backgroundColor` | `string` | No | `'#000'` | This is the background color of sticky header, and also used as parallax header background color if `renderBackground` is not provided. |
 | `renderBackground` | `func` | No | Opaque background using `backgroundColor`. | This renders the background of the parallax header. Can be used to display cover images for example. |
-| `parallaxHeaderHeight` | `number` | Yes | This is the initial height of parallax header. |
 | `renderParallaxHeader` |  `func` | Yes | N/A | This renders the parallax header above the background. |
-| `renderStickyHeader` | `func` | No | N/A | This renders an optional sticky header that will be fixed to the top of the view. |
+| `parallaxHeaderHeight` | `number` | Yes | This is the initial height of parallax header. |
+| `renderStickyHeader` | `func` | No | N/A | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | 0 | If `renderStickyHeader` is set, then its height must be specified. |
+| `renderFixedHeader` | `func` | No | N/A | This renders an optional fixed header that will always be visible and fixed to the top of the view (and sticky header). You must set its height and width appropriately. |

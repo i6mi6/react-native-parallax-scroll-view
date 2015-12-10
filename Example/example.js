@@ -69,13 +69,19 @@ class Example extends Component {
           </View>
         )}
 
-        renderStickyHeader={(sectionData, sectionID) => (
+        renderStickyHeader={() => (
           <View style={styles.stickySection}>
-            <Text style={styles.stickySectionText}>Talks by Rich Hickey</Text>
+            <Text style={styles.stickySectionText}>Rich Hickey Talks</Text>
           </View>
         )}
 
-        renderParallaxHeader={(sectionData, sectionID) => (
+        renderFixedHeader={() => (
+          <View style={styles.fixedSection}>
+            <Text style={styles.fixedSectionText} onPress={() => console.log('Pressed')}>DEMO</Text>
+          </View>
+        )}
+
+        renderParallaxHeader={() => (
           <View style={ styles.parallaxHeader }>
             <Image style={ styles.avatar } source={{
               uri: 'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',
@@ -86,7 +92,7 @@ class Example extends Component {
               Talks by Rich Hickey
             </Text>
             <Text style={ styles.sectionTitleText }>
-              Talks from the creator of Clojure
+              CTO of Cognitec, Creator of Clojure
             </Text>
           </View>
         )}
@@ -123,16 +129,23 @@ const styles = StyleSheet.create({
     height: PARALLAX_HEADER_HEIGHT
   },
   stickySection: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    height: STICKY_HEADER_HEIGHT
+    height: STICKY_HEADER_HEIGHT,
+    width: 300,
+    justifyContent: 'flex-end'
   },
   stickySectionText: {
     color: 'white',
     fontSize: 20,
-    marginLeft: 10,
-    marginBottom: 10
+    margin: 10
+  },
+  fixedSection: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10
+  },
+  fixedSectionText: {
+    color: '#777',
+    fontSize: 20
   },
   parallaxHeader: {
     alignItems: 'center',

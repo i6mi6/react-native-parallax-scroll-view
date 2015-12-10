@@ -18,8 +18,10 @@ const {
 // Properties accepted by `ParallaxListView`.
 const IPropTypes = {
   backgroundColor: string,
+  fixedHeaderHeight: number,
   parallaxHeaderHeight: number.isRequired,
   renderStickyHeader: func,
+  renderFixedHeader: func,
   renderBackground: func,
   renderParallaxHeader: func.isRequired,
   rowHeight: number,
@@ -45,8 +47,9 @@ class ParallaxListView extends Component {
       parallaxHeaderHeight,
       stickyHeaderHeight,
       renderBackground,
-      renderStickyHeader,
+      renderFixedHeader,
       renderParallaxHeader,
+      renderStickyHeader,
       rowHeight,
       onScroll: prevOnScroll = () => {},
       style,
@@ -124,27 +127,29 @@ class ParallaxListView extends Component {
                   }}/>
         { renderStickyHeader
           ? (
+            <View style={[styles.stickyHeader, { height: stickyHeaderHeight }]}>
             <Animated.View shouldRasterizeIOS={true}
-                           style={[styles.stickyHeader, {
-                               backgroundColor,
-                               height: stickyHeaderHeight,
-                               opacity: scrollY.interpolate({
-                                 inputRange: [-window.height, 0, stickyHeaderHeight],
-                                 outputRange: [0, 0, 1],
-                                 extrapolate: 'clamp'
-                               })
-                             }]}>
-              <Animated.View shouldRasterizeIOS={true}
-                             style={{transform: [{
-                                 translateY: scrollY.interpolate({
-                                   inputRange: [-window.height, 0, stickyHeaderHeight],
-                                   outputRange: [stickyHeaderHeight, stickyHeaderHeight, 0],
-                                   extrapolate: 'clamp'
-                                 })
-                               }]}}>
-                { renderStickyHeader() }
+                             style={{backgroundColor,
+                                     height: stickyHeaderHeight,
+                                     opacity: scrollY.interpolate({
+                                       inputRange: [-window.height, 0, stickyHeaderHeight],
+                                       outputRange: [0, 0, 1],
+                                       extrapolate: 'clamp'
+                                     })
+                               }}>
+                <Animated.View shouldRasterizeIOS={true}
+                               style={{transform: [{
+                                   translateY: scrollY.interpolate({
+                                     inputRange: [-window.height, 0, stickyHeaderHeight],
+                                     outputRange: [stickyHeaderHeight, stickyHeaderHeight, 0],
+                                     extrapolate: 'clamp'
+                                   })
+                                 }]}}>
+                  { renderStickyHeader() }
+                </Animated.View>
               </Animated.View>
-            </Animated.View>
+              { renderFixedHeader && renderFixedHeader() }
+            </View>
           )
           : null
         }
@@ -186,7 +191,7 @@ const styles = StyleSheet.create({
     top: 0
   },
   stickyHeader: {
-    backgroundColor: '#000',
+    backgroundColor: 'transparent',
     position: 'absolute',
     overflow: 'hidden',
     top: 0,
