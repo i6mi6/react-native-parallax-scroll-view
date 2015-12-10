@@ -9,21 +9,12 @@
     "README.md",
     "LICENSE"
   ],
-  "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir lib",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "react-native",
     "react",
-    "parallax"
+    "parallax",
+    "react-component"
   ],
   "author": "Jack Hsu",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-cli": "^6.3.15",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
-    "babel-preset-stage-2": "^6.3.13"
-  }
+  "license": "ISC"
 }
