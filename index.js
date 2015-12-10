@@ -110,12 +110,13 @@ class ParallaxListView extends Component {
 
                   renderFooter={() => {
                     let height;
+                    const extraTopHeight = renderStickyHeader ? stickyHeaderHeight : 0;
 
                     // If `rowHeight` is provided, we can calculate exact remaining height in order to allow
                     // parallax header to scroll all the way up. Otherwise, extra padding will have to be accounted
                     // for outside of this component.
                     if (rowHeight) {
-                      height = Math.max(0, window.height - stickyHeaderHeight - dataSource.getRowCount() * rowHeight);
+                      height = Math.max(0, window.height - extraTopHeight - dataSource.getRowCount() * rowHeight);
                     } else {
                       height = 0;
                     }
