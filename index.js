@@ -31,7 +31,7 @@ class ParallaxListView extends Component {
   constructor(props) {
     super(props);
     if (props.renderStickyHeader && !props.stickyHeaderHeight) {
-      console.error('Property `stickyHeaderHeight` must be set if `stickyHeader` is true')
+      console.error('Property `stickyHeaderHeight` must be set if `renderStickyHeader` is used')
     }
     this.state = { scrollY: new Animated.Value(0) };
     this._animatedEvent = Animated.event([{nativeEvent: { contentOffset: { y: this.state.scrollY } } }]);
