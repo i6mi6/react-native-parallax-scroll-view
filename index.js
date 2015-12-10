@@ -129,11 +129,11 @@ class ParallaxListView extends Component {
 
 ParallaxListView.propTypes = {
   ...ParallaxListView.propTypes,
-  rowHeight: number.isRequired,
   parallaxHeaderHeight: number.isRequired,
   renderStickyHeader: func,
   renderBackground: func.isRequired,
   renderParallaxHeader: func.isRequired,
+  rowHeight: number.isRequired,
   stickyHeaderHeight: number
 };
 
