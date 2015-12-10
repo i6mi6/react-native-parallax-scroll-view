@@ -1,3 +1,11 @@
+/*
+ * This demo shows all of the options available in the `ParallaxListView` component.
+ *
+ * 1. A background component is provided via `renderBackground`.
+ * 2. A sticky header is provided via `renderStickyHeader`.
+ * 3. A fixed "Scroll to top" pressable element is fixed to the top via `renderFixedHeader`.
+ * 4. Scrolling to top behaviour is implemented by calling the `getScrollResponder()` method.
+ */
 import React, {
   Component,
   Dimensions,
@@ -47,6 +55,7 @@ class Example extends Component {
   render() {
     return (
       <ParallaxListView
+        ref="ParallaxListView"
         style={styles.container}
         dataSource={ this.state.dataSource }
 
@@ -77,7 +86,10 @@ class Example extends Component {
 
         renderFixedHeader={() => (
           <View style={styles.fixedSection}>
-            <Text style={styles.fixedSectionText} onPress={() => console.log('Pressed')}>DEMO</Text>
+            <Text style={styles.fixedSectionText}
+                  onPress={() => this.refs.ParallaxListView.getScrollResponder().scrollResponderScrollTo(0, 0)}>
+              Scroll to top
+            </Text>
           </View>
         )}
 
@@ -144,7 +156,7 @@ const styles = StyleSheet.create({
     right: 10
   },
   fixedSectionText: {
-    color: '#777',
+    color: '#999',
     fontSize: 20
   },
   parallaxHeader: {
