@@ -2,6 +2,8 @@
 
 Parallax header and sticky header for `ListView`.
 
+Tested with react-native 0.16.0 on Android and iOS.
+
 ## Installation
 
 ```
