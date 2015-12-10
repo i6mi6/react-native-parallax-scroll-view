@@ -1,6 +1,6 @@
 import React, { AppRegistry, StatusBarIOS, processColor } from 'react-native';
 
-import Example from './Example';
+import Example from './example';
 
 StatusBarIOS.setStyle('light-content');
 
