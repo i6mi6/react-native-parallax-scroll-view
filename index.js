@@ -3,7 +3,6 @@ const {
   Animated,
   Component,
   Dimensions,
-  Image,
   ListView,
   StyleSheet,
   View
@@ -88,7 +87,16 @@ class ParallaxListView extends Component {
                   )}
 
                   renderFooter={() => {
-                    const height = Math.max(0, window.height - stickyHeaderHeight - dataSource.getRowCount() * rowHeight);
+                    let height;
+
+                    // If `rowHeight` is provided, we can calculate exact remaining height in order to allow
+                    // parallax header to scroll all the way up. Otherwise, extra padding will have to be accounted
+                    // for outside of this component.
+                    if (rowHeight) {
+                      height = Math.max(0, window.height - stickyHeaderHeight - dataSource.getRowCount() * rowHeight);
+                    } else {
+                      height = 0;
+                    }
                     return <View shouldRasterizeIOS={true} style={{ height }}/>;
                   }}/>
         <Animated.View shouldRasterizeIOS={true}
@@ -125,7 +133,7 @@ ParallaxListView.propTypes = {
   renderStickyHeader: func,
   renderBackground: func.isRequired,
   renderParallaxHeader: func.isRequired,
-  rowHeight: number.isRequired,
+  rowHeight: number,
   stickyHeaderHeight: number
 };
 
