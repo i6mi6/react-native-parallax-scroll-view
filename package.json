@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "description": "ListView with parallax header support",
   "main": "index.js",
-  "jsnext:main": "src/index.js",
   "files": [
-    "lib",
-    "src"
+    "index"
   ],
   "scripts": {
     "build": "./node_modules/.bin/babel src --out-dir lib",
