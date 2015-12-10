@@ -18,23 +18,17 @@ const {
 class ParallaxListView extends Component {
   constructor(props) {
     super(props);
-
     if (props.renderStickyHeader && !props.stickyHeaderHeight) {
       console.error('Property `stickyHeaderHeight` must be set if `stickyHeader` is true')
     }
-
-    this.state = {
-      scrollY: new Animated.Value(0)
-    };
-
-    this._animatedEvent = Animated.event([
-      { nativeEvent: { contentOffset: { y: this.state.scrollY } } }
-    ]);
+    this.state = { scrollY: new Animated.Value(0) };
+    this._animatedEvent = Animated.event([{nativeEvent: { contentOffset: { y: this.state.scrollY } } }]);
   }
 
   render() {
     const { scrollY } = this.state;
     const {
+      dataSource,
       parallaxHeaderHeight,
       stickyHeaderHeight,
       renderBackground,
@@ -45,28 +39,29 @@ class ParallaxListView extends Component {
       ...listViewProps
       } = this.props;
     return (
-      <View style={{ flex: 1, backgroundColor: 'transparent' }}>
+      <View style={styles.container}>
         <Animated.View shouldRasterizeIOS={true}
                        style={[styles.backgroundImage, {
-                           transform: [{
-                             translateY: scrollY.interpolate({
-                               inputRange: [0, parallaxHeaderHeight - stickyHeaderHeight],
-                               outputRange: [0, -parallaxHeaderHeight],
-                               extrapolateRight: 'extend',
-                               extrapolateLeft: 'clamp'
-                             })
-                           }, {
-                             scale: scrollY.interpolate({
-                               inputRange: [-window.height, 0],
-                               outputRange: [5, 1],
-                               extrapolate: 'clamp'
-                             })
-                           }]
-                         }]}>
+                               transform: [{
+                                 translateY: scrollY.interpolate({
+                                   inputRange: [0, parallaxHeaderHeight - stickyHeaderHeight],
+                                   outputRange: [0, -parallaxHeaderHeight],
+                                   extrapolateRight: 'extend',
+                                   extrapolateLeft: 'clamp'
+                                 })
+                               }, {
+                                 scale: scrollY.interpolate({
+                                   inputRange: [-window.height, 0],
+                                   outputRange: [5, 1],
+                                   extrapolate: 'clamp'
+                                 })
+                               }]
+                             }]}>
           { renderBackground() }
         </Animated.View>
-        <ListView ref="ListView"
-          {...listViewProps}
+        <ListView {...listViewProps}
+                  dataSource={dataSource}
+                  ref="ListView"
                   scrollEventThrottle={16}
                   onScroll={e => {
                     this._animatedEvent(e);
@@ -76,45 +71,43 @@ class ParallaxListView extends Component {
                     <View>
                       <Animated.View shouldRasterizeIOS={true}
                                      style={[styles.parallaxHeader, {
-                                       height: scrollY.interpolate({
-                                         inputRange: [0, parallaxHeaderHeight - stickyHeaderHeight],
-                                         outputRange: [parallaxHeaderHeight, stickyHeaderHeight],
-                                         extrapolate: 'clamp'
-                                       }),
-                                       opacity: scrollY.interpolate({
-                                         inputRange: [0, (parallaxHeaderHeight - stickyHeaderHeight) / 2 - 20, (parallaxHeaderHeight - stickyHeaderHeight) / 2],
-                                         outputRange: [1, .9, 0],
-                                         extrapolate: 'extend'
-                                       })
-                                     }]}>
+                                             height: scrollY.interpolate({
+                                               inputRange: [0, parallaxHeaderHeight - stickyHeaderHeight],
+                                               outputRange: [parallaxHeaderHeight, stickyHeaderHeight],
+                                               extrapolate: 'clamp'
+                                             }),
+                                             opacity: scrollY.interpolate({
+                                               inputRange: [0, (parallaxHeaderHeight - stickyHeaderHeight) / 2 - 20, (parallaxHeaderHeight - stickyHeaderHeight) / 2],
+                                               outputRange: [1, .9, 0],
+                                               extrapolate: 'extend'
+                                             })
+                                           }]}>
                           { renderParallaxHeader() }
                       </Animated.View>
                     </View>
                   )}
+
                   renderFooter={() => {
-                    const { dataSource } = this.props;
                     const height = Math.max(0, window.height - stickyHeaderHeight - dataSource.getRowCount() * rowHeight);
-                    return (
-                      <View shouldRasterizeIOS={true} style={{ height }}/>
-                    );
+                    return <View shouldRasterizeIOS={true} style={{ height }}/>;
                   }}/>
         <Animated.View shouldRasterizeIOS={true}
                        style={[styles.stickyHeader, {
-                                       height: stickyHeaderHeight,
-                                       opacity: scrollY.interpolate({
-                                         inputRange: [-window.height, 0, stickyHeaderHeight],
-                                         outputRange: [0, 0, 1],
-                                         extrapolate: 'clamp'
-                                       })
-                                     }]}>
+                               height: stickyHeaderHeight,
+                               opacity: scrollY.interpolate({
+                                 inputRange: [-window.height, 0, stickyHeaderHeight],
+                                 outputRange: [0, 0, 1],
+                                 extrapolate: 'clamp'
+                               })
+                             }]}>
           <Animated.View shouldRasterizeIOS={true}
                          style={{transform: [{
-                                           translateY: scrollY.interpolate({
-                                             inputRange: [-window.height, 0, stickyHeaderHeight],
-                                             outputRange: [stickyHeaderHeight, stickyHeaderHeight, 0],
-                                             extrapolate: 'clamp'
-                                           })
-                                         }]}}>
+                                 translateY: scrollY.interpolate({
+                                   inputRange: [-window.height, 0, stickyHeaderHeight],
+                                   outputRange: [stickyHeaderHeight, stickyHeaderHeight, 0],
+                                   extrapolate: 'clamp'
+                                 })
+                               }]}}>
             { renderStickyHeader() }
           </Animated.View>
         </Animated.View>
@@ -144,6 +137,10 @@ ParallaxListView.defaultProps = {
 const window = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'transparent'
+  },
   parallaxHeader: {
     backgroundColor: 'transparent',
     overflow: 'hidden'
