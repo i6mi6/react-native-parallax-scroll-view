@@ -51,6 +51,7 @@ class Example extends Component {
         dataSource={ this.state.dataSource }
 
         // Parallax options
+        backgroundColor="#333"
         rowHeight={ ROW_HEIGHT }
         stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
         parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
@@ -111,7 +112,8 @@ const STICKY_HEADER_HEIGHT = 70;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'black'
   },
   background: {
     position: 'absolute',

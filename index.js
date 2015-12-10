@@ -9,10 +9,23 @@ const {
 } = React;
 
 const {
-  bool,
+  any,
   func,
-  number
+  number,
+  string
 } = React.PropTypes;
+
+// Properties accepted by `ParallaxListView`.
+const IPropTypes = {
+  backgroundColor: string,
+  parallaxHeaderHeight: number.isRequired,
+  renderStickyHeader: func,
+  renderBackground: func,
+  renderParallaxHeader: func,
+  rowHeight: number,
+  stickyHeaderHeight: number,
+  style: any
+};
 
 class ParallaxListView extends Component {
   constructor(props) {
@@ -27,6 +40,7 @@ class ParallaxListView extends Component {
   render() {
     const { scrollY } = this.state;
     const {
+      backgroundColor,
       dataSource,
       parallaxHeaderHeight,
       stickyHeaderHeight,
@@ -35,12 +49,17 @@ class ParallaxListView extends Component {
       renderParallaxHeader,
       rowHeight,
       onScroll: prevOnScroll = () => {},
+      style,
       ...listViewProps
-      } = this.props;
+    } = this.props;
+
     return (
       <View style={styles.container}>
         <Animated.View shouldRasterizeIOS={true}
                        style={[styles.backgroundImage, {
+                               backgroundColor,
+                               height: parallaxHeaderHeight,
+                               width: window.width,
                                transform: [{
                                  translateY: scrollY.interpolate({
                                    inputRange: [0, parallaxHeaderHeight - stickyHeaderHeight],
@@ -56,9 +75,12 @@ class ParallaxListView extends Component {
                                  })
                                }]
                              }]}>
-          { renderBackground() }
+          <View>
+            { renderBackground && renderBackground() }
+          </View>
         </Animated.View>
         <ListView {...listViewProps}
+                  style={[style, styles.listView]}
                   dataSource={dataSource}
                   ref="ListView"
                   scrollEventThrottle={16}
@@ -67,7 +89,7 @@ class ParallaxListView extends Component {
                     prevOnScroll(e);
                   }}
                   renderHeader={() => (
-                    <View>
+                    <View style={styles.parallaxHeaderContainer}>
                       <Animated.View shouldRasterizeIOS={true}
                                      style={[styles.parallaxHeader, {
                                              height: scrollY.interpolate({
@@ -99,8 +121,11 @@ class ParallaxListView extends Component {
                     }
                     return <View shouldRasterizeIOS={true} style={{ height }}/>;
                   }}/>
-        <Animated.View shouldRasterizeIOS={true}
-                       style={[styles.stickyHeader, {
+        { renderStickyHeader
+          ? (
+            <Animated.View shouldRasterizeIOS={true}
+                           style={[styles.stickyHeader, {
+                               backgroundColor,
                                height: stickyHeaderHeight,
                                opacity: scrollY.interpolate({
                                  inputRange: [-window.height, 0, stickyHeaderHeight],
@@ -108,17 +133,20 @@ class ParallaxListView extends Component {
                                  extrapolate: 'clamp'
                                })
                              }]}>
-          <Animated.View shouldRasterizeIOS={true}
-                         style={{transform: [{
+              <Animated.View shouldRasterizeIOS={true}
+                             style={{transform: [{
                                  translateY: scrollY.interpolate({
                                    inputRange: [-window.height, 0, stickyHeaderHeight],
                                    outputRange: [stickyHeaderHeight, stickyHeaderHeight, 0],
                                    extrapolate: 'clamp'
                                  })
                                }]}}>
-            { renderStickyHeader() }
-          </Animated.View>
-        </Animated.View>
+                { renderStickyHeader() }
+              </Animated.View>
+            </Animated.View>
+          )
+          : null
+        }
       </View>
     );
   }
@@ -128,17 +156,12 @@ class ParallaxListView extends Component {
   }
 }
 
-ParallaxListView.propTypes = {
-  parallaxHeaderHeight: number.isRequired,
-  renderStickyHeader: func,
-  renderBackground: func.isRequired,
-  renderParallaxHeader: func.isRequired,
-  rowHeight: number,
-  stickyHeaderHeight: number
-};
+ParallaxListView.propTypes = IPropTypes;
 
 ParallaxListView.defaultProps = {
-  stickyHeaderHeight: 0
+  backgroundColor: '#000',
+  stickyHeaderHeight: 0,
+  style: {}
 };
 
 const window = Dimensions.get('window');
@@ -148,21 +171,29 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent'
   },
+  parallaxHeaderContainer: {
+    backgroundColor: 'transparent',
+    overflow: 'hidden'
+  },
   parallaxHeader: {
     backgroundColor: 'transparent',
     overflow: 'hidden'
   },
   backgroundImage: {
     position: 'absolute',
+    backgroundColor: 'transparent',
     top: 0
   },
   stickyHeader: {
-    backgroundColor: 'black',
+    backgroundColor: '#000',
     position: 'absolute',
     overflow: 'hidden',
     top: 0,
     left: 0,
     width: window.width
+  },
+  listView: {
+    backgroundColor: 'transparent'
   }
 });
 
