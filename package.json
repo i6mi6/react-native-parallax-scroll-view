@@ -3,6 +3,10 @@
   "version": "0.16.0",
   "description": "ListView with parallax header support",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaysoo/react-native-parallax-listview"
+  },
   "files": [
     "index",
     "parallax-ios.gif",
@@ -13,7 +17,9 @@
     "react-native",
     "react",
     "parallax",
-    "react-component"
+    "react-component",
+    "ios",
+    "android"
   ],
   "author": "Jack Hsu",
   "license": "ISC"
