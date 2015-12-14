@@ -10,6 +10,7 @@ const {
 
 const {
   any,
+  bool,
   func,
   number,
   string
@@ -17,15 +18,15 @@ const {
 
 // Properties accepted by `ParallaxListView`.
 const IPropTypes = {
-  backgroundColor: string,
-  fixedHeaderHeight: number,
   parallaxHeaderHeight: number.isRequired,
+  renderParallaxHeader: func.isRequired,
+  rowHeight: number,
+  backgroundColor: string,
   renderStickyHeader: func,
   renderFixedHeader: func,
   renderBackground: func,
-  renderParallaxHeader: func.isRequired,
-  rowHeight: number,
   stickyHeaderHeight: number,
+  shouldPadBottom: bool,
   style: any
 };
 
@@ -58,8 +59,7 @@ class ParallaxListView extends Component {
 
     return (
       <View style={styles.container}>
-        <Animated.View shouldRasterizeIOS={true}
-                       style={[styles.backgroundImage, {
+        <Animated.View style={[styles.backgroundImage, {
                                backgroundColor,
                                height: parallaxHeaderHeight,
                                width: window.width,
@@ -93,8 +93,7 @@ class ParallaxListView extends Component {
                   }}
                   renderHeader={() => (
                     <View style={styles.parallaxHeaderContainer}>
-                      <Animated.View shouldRasterizeIOS={true}
-                                     style={[styles.parallaxHeader, {
+                      <Animated.View style={[styles.parallaxHeader, {
                                              height: scrollY.interpolate({
                                                inputRange: [0, parallaxHeaderHeight - stickyHeaderHeight],
                                                outputRange: [parallaxHeaderHeight, stickyHeaderHeight],
@@ -123,22 +122,21 @@ class ParallaxListView extends Component {
                     } else {
                       height = 0;
                     }
-                    return <View shouldRasterizeIOS={true} style={{ height }}/>;
+
+                    return <View style={{ height }}/>;
                   }}/>
         { renderStickyHeader
           ? (
             <View style={[styles.stickyHeader, { height: stickyHeaderHeight }]}>
-            <Animated.View shouldRasterizeIOS={true}
-                             style={{backgroundColor,
-                                     height: stickyHeaderHeight,
-                                     opacity: scrollY.interpolate({
-                                       inputRange: [-window.height, 0, stickyHeaderHeight],
-                                       outputRange: [0, 0, 1],
-                                       extrapolate: 'clamp'
-                                     })
-                               }}>
-                <Animated.View shouldRasterizeIOS={true}
-                               style={{transform: [{
+            <Animated.View style={{backgroundColor,
+                                   height: stickyHeaderHeight,
+                                   opacity: scrollY.interpolate({
+                                     inputRange: [-window.height, 0, stickyHeaderHeight],
+                                     outputRange: [0, 0, 1],
+                                     extrapolate: 'clamp'
+                                   })
+                             }}>
+                <Animated.View style={{transform: [{
                                    translateY: scrollY.interpolate({
                                      inputRange: [-window.height, 0, stickyHeaderHeight],
                                      outputRange: [stickyHeaderHeight, stickyHeaderHeight, 0],
