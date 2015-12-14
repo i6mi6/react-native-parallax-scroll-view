@@ -19,7 +19,7 @@ import React, {
 
 import ParallaxListView from 'react-native-parallax-listview';
 
-class Example extends Component {
+class Talks extends Component {
   constructor(props) {
     super(props);
 
@@ -53,11 +53,14 @@ class Example extends Component {
   }
 
   render() {
+    const { onScroll = () => {} } = this.props;
     return (
       <ParallaxListView
         ref="ParallaxListView"
         style={styles.container}
         dataSource={ this.state.dataSource }
+
+        onScroll={onScroll}
 
         // Parallax options
         backgroundColor="#333"
@@ -66,7 +69,7 @@ class Example extends Component {
         parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
 
         renderBackground={() => (
-          <View>
+          <View key="background">
             <Image source={{uri: 'https://i.ytimg.com/vi/P-NZei5ANaQ/maxresdefault.jpg',
                             width: window.width,
                             height: PARALLAX_HEADER_HEIGHT}}/>
@@ -79,13 +82,13 @@ class Example extends Component {
         )}
 
         renderStickyHeader={() => (
-          <View style={styles.stickySection}>
+          <View key="sticky-header" style={styles.stickySection}>
             <Text style={styles.stickySectionText}>Rich Hickey Talks</Text>
           </View>
         )}
 
         renderFixedHeader={() => (
-          <View style={styles.fixedSection}>
+          <View key="fixed-header" style={styles.fixedSection}>
             <Text style={styles.fixedSectionText}
                   onPress={() => this.refs.ParallaxListView.getScrollResponder().scrollResponderScrollTo(0, 0)}>
               Scroll to top
@@ -94,7 +97,7 @@ class Example extends Component {
         )}
 
         renderParallaxHeader={() => (
-          <View style={ styles.parallaxHeader }>
+          <View key="parallax-header" style={ styles.parallaxHeader }>
             <Image style={ styles.avatar } source={{
               uri: 'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',
               width: AVATAR_SIZE,
@@ -110,7 +113,7 @@ class Example extends Component {
         )}
 
         renderRow={ rowData => (
-          <View style={ styles.row }>
+          <View key={rowData} style={ styles.row }>
             <Text style={ styles.rowText }>
               { rowData }
             </Text>
@@ -192,4 +195,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Example;
+export default Talks;

@@ -8,6 +8,7 @@
     "url": "https://github.com/jaysoo/react-native-parallax-listview"
   },
   "files": [
+    "lib",
     "index",
     "parallax-ios.gif",
     "README.md",
