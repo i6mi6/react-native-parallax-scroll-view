@@ -7,7 +7,6 @@ import React, {
   PullToRefreshViewAndroid,
   View,
 } from 'react-native';
-import { throttle } from 'react-native-parallax-listview/lib/utils';
 
 import Talks from './Talks';
 
@@ -16,13 +15,6 @@ class AndroidExample extends Component {
     super(props);
     this.state = {
       isRefreshing: false
-    };
-    this._maybeUpdateRefreshEnabled = (scrollY) => {
-      if (scrollY <= 10) {
-        this.setState({ refreshEnabled: true });
-      } else {
-        this.setState({ refreshEnabled: false });
-      }
     };
   }
 
@@ -47,7 +39,11 @@ class AndroidExample extends Component {
         <Talks
           key="talks"
           onScroll={(e) => {
-            this._maybeUpdateRefreshEnabled(e.nativeEvent.contentOffset.y);
+            if (e.nativeEvent.contentOffset.y <= 10) {
+              this.setState({ refreshEnabled: true });
+            } else {
+              this.setState({ refreshEnabled: false });
+            }
           }}/>
       </PullToRefreshViewAndroid>
     );
