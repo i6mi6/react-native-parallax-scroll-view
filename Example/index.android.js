@@ -13,36 +13,34 @@ import Talks from './Talks';
 class AndroidExample extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isRefreshing: false
-    };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return ['isRefreshing', 'refreshEnabled'].some(prop => nextState[prop] !== this.state[prop]);
+  shouldComponentUpdate() {
+    return false;
   }
 
   render() {
     return (
       <PullToRefreshViewAndroid
+        ref={ref => { this._pullToRefresh = ref }}
         style={{ flex: 1 }}
         colors={['#000', '#999', '#fff']}
         progressBackgroundColor={'#fff'}
-        enabled={this.state.refreshEnabled}
-        refreshing={this.state.isRefreshing}
+        enabled={true}
+        refreshing={false}
         onRefresh={() => {
-          this.setState({ isRefreshing: true });
+          this._pullToRefresh.getInnerViewNode().setNativeProps({ refreshing: true });
           setTimeout(() => {
-            this.setState({ isRefreshing: false });
+            this._pullToRefresh.getInnerViewNode().setNativeProps({ refreshing: false });
           }, 1000);
         }}>
         <Talks
           key="talks"
           onScroll={(e) => {
-            if (e.nativeEvent.contentOffset.y <= 10) {
-              this.setState({ refreshEnabled: true });
+            if (e.nativeEvent.contentOffset.y <= 0) {
+              this._pullToRefresh.getInnerViewNode().setNativeProps({ enabled: true });
             } else {
-              this.setState({ refreshEnabled: false });
+              this._pullToRefresh.getInnerViewNode().setNativeProps({ enabled: false });
             }
           }}/>
       </PullToRefreshViewAndroid>
