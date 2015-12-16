@@ -33,7 +33,7 @@ render() {
           <Text>Hello World!</Text>
         </View>
       )}>
-      <View style={{ height: 500, backgroundColor: "pink" }}>
+      <View style={{ height: 500 }}>
         <Text>Scroll me</Text>
       </View>
     </ParallaxScrollView>
