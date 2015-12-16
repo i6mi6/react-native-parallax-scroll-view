@@ -64,7 +64,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | `parallaxHeaderHeight` | `number` | **Yes** | N/A | This is the height of parallax header. |
 | `headerBackgroundColor` | `string` | No | `'#000'` | This is the background color of the sticky header, and also used as parallax header background color if `renderBackground` is not provided. |
 | `contentBackgroundColor` | `string` | No | `'#fff'` | This is the background color of the content. |
-| `renderBackground` | `func` | No | Opaque background using `backgroundColor`. | This renders the background of the parallax header. Can be used to display cover images for example. |
+| `renderBackground` | `func` | No | Opaque background using `headerBackgroundColor`. | This renders the background of the parallax header. Can be used to display cover images for example. |
 | `renderStickyHeader` | `func` | No | N/A | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | 0 | If `renderStickyHeader` is set, then its height must be specified. |
 | `renderFixedHeader` | `func` | No | N/A | This renders an optional fixed header that will always be visible and fixed to the top of the view (and sticky header). You must set its height and width appropriately. |
