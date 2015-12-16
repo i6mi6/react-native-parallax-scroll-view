@@ -122,9 +122,9 @@ class ParallaxScrollView extends Component {
     this._animatedEvent(e);
 
     if (e.nativeEvent.contentOffset.y >= midpoint) {
-      onChangeHeaderVisibility({ visible: false, nativeEvent: e.nativeEvent });
+      onChangeHeaderVisibility(false);
     } else {
-      onChangeHeaderVisibility({ visible: true,  nativeEvent: e.nativeEvent });
+      onChangeHeaderVisibility(true);
     }
 
     prevOnScroll(e);
