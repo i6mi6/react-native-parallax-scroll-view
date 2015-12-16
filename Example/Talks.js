@@ -57,7 +57,6 @@ class Talks extends Component {
 
             // Parallax options
             backgroundColor="#333"
-            rowHeight={ ROW_HEIGHT }
             stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
             parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
 

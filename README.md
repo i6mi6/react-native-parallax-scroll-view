@@ -2,6 +2,8 @@
 
 A `ScrollView`-like component with parallax and sticky header support.
 
+
+
 Tested with react-native 0.16.0 on Android and iOS.
 
 ## Installation
@@ -14,9 +16,32 @@ $ npm install react-native-parallax-scroll-view --save
 
 ![](./parallax-scroll-view-ios.gif)
 
-## Example
+## Basic Usage
 
-Please refer to the [Example](./Example/example.js) provided.
+```
+import ScrollableParallaxView from 'react-native-scrollable-parallax-view';
+
+// Inside of a component's render() method:
+render() {
+  return (
+    <ScrollableParallaxView
+      backgroundColor="blue"
+      parallaxHeaderHeight={300}
+      renderParallaxHeader={() => (
+       <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Hello World!</Text>
+        </View>
+      )}/>
+  );
+}
+```
+
+## Examples
+
+Please refer to the [Example](./Example/example.js) provided to see how `ParallaxScrollView` can be used in
+combination with `ListView`.
+
+The [Android example](./Example/index.android.js) shows how you can use `PullToRefreshViewAndroid` with `ParallaxScrollView`.
 
 ## Usage (API)
 
