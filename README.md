@@ -18,7 +18,7 @@ $ npm install react-native-parallax-scroll-view --save
 
 ## Basic Usage
 
-```
+```js
 import ScrollableParallaxView from 'react-native-scrollable-parallax-view';
 
 // Inside of a component's render() method:
