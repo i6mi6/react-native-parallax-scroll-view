@@ -50,8 +50,8 @@ The [Android example](./Example/index.android.js) shows how you can use `PullToR
 
 ## Usage (API)
 
-All of the properties of `ParallaxScrollView` are supported. Please refer to the
-[`ParallaxScrollView` documentation](https://facebook.github.io/react-native/docs/scrollview.html) for more detail.
+All of the properties of `ScrollView` are supported. Please refer to the
+[`ScrollView` documentation](https://facebook.github.io/react-native/docs/scrollview.html) for more detail.
 
 The `ParallaxScrollView` component adds a few additional properties, as described below.
 
