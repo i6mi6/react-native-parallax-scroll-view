@@ -10,7 +10,6 @@ const {
 
 const {
   any,
-  bool,
   func,
   number,
   string
@@ -18,15 +17,14 @@ const {
 
 // Properties accepted by `ParallaxScrollView`.
 const IPropTypes = {
+  headerBackgroundColor: string,
+  contentBackgroundColor: string,
   parallaxHeaderHeight: number.isRequired,
   renderParallaxHeader: func.isRequired,
-  rowHeight: number,
-  backgroundColor: string,
   renderStickyHeader: func,
   renderFixedHeader: func,
   renderBackground: func,
   stickyHeaderHeight: number,
-  shouldPadBottom: bool,
   style: any
 };
 
@@ -44,8 +42,9 @@ class ParallaxScrollView extends Component {
   render() {
     const { scrollY } = this.state;
     const {
-      backgroundColor,
       children,
+      contentBackgroundColor,
+      headerBackgroundColor,
       parallaxHeaderHeight,
       stickyHeaderHeight,
       renderBackground,
@@ -61,7 +60,7 @@ class ParallaxScrollView extends Component {
       <View style={styles.container}>
         <Animated.View
           style={[styles.backgroundImage, {
-            backgroundColor,
+            backgroundColor: headerBackgroundColor,
             height: parallaxHeaderHeight,
             width: window.width,
             transform: [{
@@ -108,26 +107,27 @@ class ParallaxScrollView extends Component {
               { renderParallaxHeader && renderParallaxHeader() }
             </Animated.View>
           </View>
-          <View key="children" ref="children"
+          <View
+              style={{ backgroundColor: contentBackgroundColor }}
               onLayout={e => {
                 // Adjust the bottom height so we can scroll the parallax header all the way up.
                 const { nativeEvent: { layout: { height } } } = e;
                 const footerHeight = Math.max(0, window.height - height - stickyHeaderHeight);
                 if (this._footerHeight !== footerHeight) {
-                  this.refs.footer.setNativeProps({ style: { height: footerHeight }});
+                  this.refs.Footer.setNativeProps({ style: { height: footerHeight }});
                   this._footerHeight = footerHeight;
                 }
               }}>
             { children }
           </View>
-          <View ref="footer"/>
+          <View ref="Footer" style={{ backgroundColor: contentBackgroundColor }}/>
         </ScrollView>
         { renderStickyHeader
           ? (
           <View style={[styles.stickyHeader, { height: stickyHeaderHeight }]}>
             <Animated.View
               style={{
-                    backgroundColor,
+                    backgroundColor: headerBackgroundColor,
                     height: stickyHeaderHeight,
                     opacity: scrollY.interpolate({
                       inputRange: [-window.height, 0, stickyHeaderHeight],
@@ -181,7 +181,8 @@ class ParallaxScrollView extends Component {
 ParallaxScrollView.propTypes = IPropTypes;
 
 ParallaxScrollView.defaultProps = {
-  backgroundColor: '#000',
+  headerBackgroundColor: '#000',
+  contentBackgroundColor: '#fff',
   stickyHeaderHeight: 0,
   style: {}
 };

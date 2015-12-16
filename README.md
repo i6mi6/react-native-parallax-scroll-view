@@ -19,19 +19,24 @@ $ npm install react-native-parallax-scroll-view --save
 ## Basic Usage
 
 ```js
-import ScrollableParallaxView from 'react-native-scrollable-parallax-view';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 // Inside of a component's render() method:
 render() {
   return (
-    <ScrollableParallaxView
-      backgroundColor="blue"
+    <ParallaxScrollView
+      headerBackgroundColor="blue"
+      contentBackgroundColor="pink"
       parallaxHeaderHeight={300}
       renderParallaxHeader={() => (
        <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Hello World!</Text>
         </View>
-      )}/>
+      )}>
+      <View style={{ height: 500, backgroundColor: "pink" }}>
+        <Text>Scroll me</Text>
+      </View>
+    </ParallaxScrollView>
   );
 }
 ```
@@ -54,7 +59,8 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | -------- | ---- | -------- | ------- | ----------- |
 | `renderParallaxHeader` |  `func` | Yes | N/A | This renders the parallax header above the background. |
 | `parallaxHeaderHeight` | `number` | Yes | This is the height of parallax header. |
-| `backgroundColor` | `string` | No | `'#000'` | This is the background color of sticky header, and also used as parallax header background color if `renderBackground` is not provided. |
+| `headerBackgroundColor` | `string` | No | `'#000'` | This is the background color of the sticky header, and also used as parallax header background color if `renderBackground` is not provided. |
+| `contentBackgroundColor` | `string` | No | `'#fff'` | This is the background color of the content. |
 | `renderBackground` | `func` | No | Opaque background using `backgroundColor`. | This renders the background of the parallax header. Can be used to display cover images for example. |
 | `renderStickyHeader` | `func` | No | N/A | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | 0 | If `renderStickyHeader` is set, then its height must be specified. |

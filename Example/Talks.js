@@ -1,5 +1,5 @@
 /*
- * This example demonstrates how to use ScrollableParallaxView within a ScrollView component.
+ * This example demonstrates how to use ParallaxScrollView within a ScrollView component.
  */
 import React, {
   Component,
@@ -12,7 +12,7 @@ import React, {
   View,
 } from 'react-native';
 
-import ScrollableParallaxView from 'react-native-parallax-scroll-view';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 
 class Talks extends Component {
   constructor(props) {
@@ -51,12 +51,12 @@ class Talks extends Component {
          )}
 
         renderScrollComponent={(props) => (
-          <ScrollableParallaxView
+          <ParallaxScrollView
             {...props}
             onScroll={onScroll}
 
             // Parallax options
-            backgroundColor="#333"
+            headerBackgroundColor="#333"
             stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
             parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
 

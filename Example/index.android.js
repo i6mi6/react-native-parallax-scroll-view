@@ -32,7 +32,7 @@ class AndroidExample extends Component {
           this._pullToRefresh.getInnerViewNode().setNativeProps({ refreshing: true });
           setTimeout(() => {
             this._pullToRefresh.getInnerViewNode().setNativeProps({ refreshing: false });
-          }, 1000);
+          }, 5000);
         }}>
         <Talks
           key="talks"
