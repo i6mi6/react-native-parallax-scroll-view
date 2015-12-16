@@ -12,7 +12,7 @@ import React, {
   View,
 } from 'react-native';
 
-import ScrollableParallaxView from 'react-native-parallax-listview';
+import ScrollableParallaxView from 'react-native-parallax-scroll-view';
 
 class Talks extends Component {
   constructor(props) {
