@@ -38,6 +38,7 @@ class Talks extends Component {
     const { onScroll = () => {} } = this.props;
     return (
       <ParallaxScrollView
+          ref="ParallaxView"
           onScroll={onScroll}
 
           headerBackgroundColor="#333"
@@ -66,7 +67,7 @@ class Talks extends Component {
           renderFixedHeader={() => (
             <View key="fixed-header" style={styles.fixedSection}>
               <Text style={styles.fixedSectionText}
-                    onPress={() => this.refs.ListView.getScrollResponder().scrollResponderScrollTo(0, 0)}>
+                    onPress={() => this.refs.ParallaxView.getScrollResponder().scrollResponderScrollTo(0, 0)}>
                 Scroll to top
               </Text>
             </View>
@@ -88,7 +89,6 @@ class Talks extends Component {
             </View>
           )}>
         <ListView
-            ref="ListView"
             style={styles.container}
             dataSource={ this.state.dataSource }
             renderRow={(rowData) => (
