@@ -12,7 +12,7 @@ $ npm install react-native-parallax-scroll-view --save
 
 ## Demo
 
-![](./demo.gif)
+![](./parallax-scroll-view-ios.gif)
 
 ## Example
 
