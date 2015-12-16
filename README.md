@@ -19,6 +19,7 @@ $ npm install react-native-parallax-scroll-view --save
 ![](./parallax-ios.gif)
 
 **Android**
+
 ![](./parallax-android.gif)
 
 ## Basic Usage
