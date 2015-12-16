@@ -1,5 +1,5 @@
 /*
- * This Android demo shows how to integrate `PullToRefreshViewAndroid` with `ParallaxHeaderListView`.
+ * This Android demo shows how to integrate `PullToRefreshViewAndroid` with `ScrollableParallaxView`.
  */
 import React, {
   AppRegistry,

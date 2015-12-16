@@ -1,10 +1,5 @@
 /*
- * This demo shows all of the options available in the `ParallaxListView` component.
- *
- * 1. A background component is provided via `renderBackground`.
- * 2. A sticky header is provided via `renderStickyHeader`.
- * 3. A fixed "Scroll to top" pressable element is fixed to the top via `renderFixedHeader`.
- * 4. Scrolling to top behaviour is implemented by calling the `getScrollResponder()` method.
+ * This example demonstrates how to use ScrollableParallaxView within a ScrollView component.
  */
 import React, {
   Component,
@@ -17,15 +12,15 @@ import React, {
   View,
 } from 'react-native';
 
-import ParallaxListView from 'react-native-parallax-listview';
+import ScrollableParallaxView from 'react-native-parallax-listview';
 
 class Talks extends Component {
   constructor(props) {
     super(props);
-
-    const dataBlob = [{
-      speaker: 'Rich Hickey',
-      talks: [
+    this.state =  {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }).cloneWithRows([
         'Simplicity Matters',
         'Hammock Driven Development',
         'Value of Values',
@@ -35,90 +30,82 @@ class Talks extends Component {
         'Clojure core.async',
         'The Functional Database',
         'Deconstructing the Database'
-      ]
-    }];
-
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-      getSectionHeaderData: (data, sectionIdx) => data[sectionIdx],
-      getRowData: (data, sectionIdx, rowIdx) => data[sectionIdx].talks[rowIdx]
-    });
-
-    const second = (a, b) => b;
-
-    this.state =  {
-      dataSource: ds.cloneWithRowsAndSections(dataBlob, dataBlob.map(second), dataBlob.map(v => v.talks.map(second)))
+      ])
     };
   }
 
   render() {
     const { onScroll = () => {} } = this.props;
+
     return (
-      <ParallaxListView
-        ref="ParallaxListView"
+      <ListView
+        ref="ListView"
         style={styles.container}
         dataSource={ this.state.dataSource }
-
-        onScroll={onScroll}
-
-        // Parallax options
-        backgroundColor="#333"
-        rowHeight={ ROW_HEIGHT }
-        stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
-        parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
-
-        renderBackground={() => (
-          <View key="background">
-            <Image source={{uri: 'https://i.ytimg.com/vi/P-NZei5ANaQ/maxresdefault.jpg',
-                            width: window.width,
-                            height: PARALLAX_HEADER_HEIGHT}}/>
-            <View style={{position: 'absolute',
-                          top: 0,
-                          width: window.width,
-                          backgroundColor: 'rgba(0,0,0,.4)',
-                          height: PARALLAX_HEADER_HEIGHT}}/>
-          </View>
-        )}
-
-        renderStickyHeader={() => (
-          <View key="sticky-header" style={styles.stickySection}>
-            <Text style={styles.stickySectionText}>Rich Hickey Talks</Text>
-          </View>
-        )}
-
-        renderFixedHeader={() => (
-          <View key="fixed-header" style={styles.fixedSection}>
-            <Text style={styles.fixedSectionText}
-                  onPress={() => this.refs.ParallaxListView.getScrollResponder().scrollResponderScrollTo(0, 0)}>
-              Scroll to top
-            </Text>
-          </View>
-        )}
-
-        renderParallaxHeader={() => (
-          <View key="parallax-header" style={ styles.parallaxHeader }>
-            <Image style={ styles.avatar } source={{
-              uri: 'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',
-              width: AVATAR_SIZE,
-              height: AVATAR_SIZE
-            }}/>
-            <Text style={ styles.sectionSpeakerText }>
-              Talks by Rich Hickey
-            </Text>
-            <Text style={ styles.sectionTitleText }>
-              CTO of Cognitec, Creator of Clojure
-            </Text>
-          </View>
-        )}
-
-        renderRow={ rowData => (
+        renderRow={(rowData) => (
           <View key={rowData} style={ styles.row }>
             <Text style={ styles.rowText }>
               { rowData }
             </Text>
           </View>
-         ) }
+         )}
+
+        renderScrollComponent={(props) => (
+          <ScrollableParallaxView
+            {...props}
+            onScroll={onScroll}
+
+            // Parallax options
+            backgroundColor="#333"
+            rowHeight={ ROW_HEIGHT }
+            stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
+            parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
+
+            renderBackground={() => (
+              <View key="background">
+                <Image source={{uri: 'https://i.ytimg.com/vi/P-NZei5ANaQ/maxresdefault.jpg',
+                                width: window.width,
+                                height: PARALLAX_HEADER_HEIGHT}}/>
+                <View style={{position: 'absolute',
+                              top: 0,
+                              width: window.width,
+                              backgroundColor: 'rgba(0,0,0,.4)',
+                              height: PARALLAX_HEADER_HEIGHT}}/>
+              </View>
+            )}
+
+            renderStickyHeader={() => (
+              <View key="sticky-header" style={styles.stickySection}>
+                <Text style={styles.stickySectionText}>Rich Hickey Talks</Text>
+              </View>
+            )}
+
+            renderFixedHeader={() => (
+              <View key="fixed-header" style={styles.fixedSection}>
+                <Text style={styles.fixedSectionText}
+                      onPress={() => this.refs.ListView.getScrollResponder().scrollResponderScrollTo(0, 0)}>
+                  Scroll to top
+                </Text>
+              </View>
+            )}
+
+            renderParallaxHeader={() => (
+              <View key="parallax-header" style={ styles.parallaxHeader }>
+                <Image style={ styles.avatar } source={{
+                  uri: 'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',
+                  width: AVATAR_SIZE,
+                  height: AVATAR_SIZE
+                }}/>
+                <Text style={ styles.sectionSpeakerText }>
+                  Talks by Rich Hickey
+                </Text>
+                <Text style={ styles.sectionTitleText }>
+                  CTO of Cognitec, Creator of Clojure
+                </Text>
+              </View>
+            )}
+          />
+        )}
       />
     );
   }
@@ -127,8 +114,8 @@ class Talks extends Component {
 const window = Dimensions.get('window');
 
 const AVATAR_SIZE = 120;
-const ROW_HEIGHT = 50;
-const PARALLAX_HEADER_HEIGHT = 300;
+const ROW_HEIGHT = 60;
+const PARALLAX_HEADER_HEIGHT = 350;
 const STICKY_HEADER_HEIGHT = 70;
 
 const styles = StyleSheet.create({
@@ -166,7 +153,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
-    paddingTop: 80
+    paddingTop: 100
   },
   avatar: {
     marginBottom: 10,

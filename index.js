@@ -37,6 +37,7 @@ class ParallaxScrollView extends Component {
       console.error('Property `stickyHeaderHeight` must be set if `renderStickyHeader` is used')
     }
     this.state = { scrollY: new Animated.Value(0) };
+    this._footerHeight = 0;
     this._animatedEvent = Animated.event([{nativeEvent: { contentOffset: { y: this.state.scrollY } } }]);
   }
 
@@ -107,7 +108,19 @@ class ParallaxScrollView extends Component {
               { renderParallaxHeader && renderParallaxHeader() }
             </Animated.View>
           </View>
-          { children }
+          <View key="children" ref="children"
+              onLayout={e => {
+                // Adjust the bottom height so we can scroll the parallax header all the way up.
+                const { nativeEvent: { layout: { height } } } = e;
+                const footerHeight = Math.min(0, window.height - height - stickyHeaderHeight);
+                if (this._footerHeight !== footerHeight) {
+                  this.refs.footer.setNativeProps({ style: { height: footerHeight }});
+                  this._footerHeight = footerHeight;
+                }
+              }}>
+            { children }
+          </View>
+          <View ref="footer"/>
         </ScrollView>
         { renderStickyHeader
           ? (
@@ -158,6 +171,10 @@ class ParallaxScrollView extends Component {
 
   scrollWithoutAnimationTo(destY, destX) {
     this.getScrollResponder().scrollWithoutAnimationTo(destY, destX);
+  }
+
+  setNativeProps(props) {
+    this.refs.ScrollView.setNativeProps(props);
   }
 }
 
