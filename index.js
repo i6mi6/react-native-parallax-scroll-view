@@ -21,6 +21,7 @@ const SCROLLVIEW_REF = 'ScrollView';
 const IPropTypes = {
   headerBackgroundColor: string,
   contentBackgroundColor: string,
+  onChangeHeaderVisibility: func,
   parallaxHeaderHeight: number.isRequired,
   renderParallaxHeader: func.isRequired,
   renderStickyHeader: func,
@@ -109,9 +110,23 @@ class ParallaxScrollView extends Component {
    */
 
   _onScroll(e) {
-    const { onScroll: prevOnScroll = () => {} } = this.props;
+    const {
+      parallaxHeaderHeight,
+      stickyHeaderHeight,
+      onChangeHeaderVisibility,
+      onScroll: prevOnScroll = () => {}
+    } = this.props;
+
+    const midpoint = (parallaxHeaderHeight - stickyHeaderHeight) / 2;
+
     this._animatedEvent(e);
-    console.log(e.nativeEvent.contentOffset.y);
+
+    if (e.nativeEvent.contentOffset.y >= midpoint) {
+      onChangeHeaderVisibility(false);
+    } else {
+      onChangeHeaderVisibility(true);
+    }
+
     prevOnScroll(e);
   }
 
@@ -234,6 +249,7 @@ ParallaxScrollView.propTypes = IPropTypes;
 ParallaxScrollView.defaultProps = {
   headerBackgroundColor: '#000',
   contentBackgroundColor: '#fff',
+  onChangeHeaderVisibility: () => {},
   renderScrollComponent: props => <ScrollView {...props}/>,
   stickyHeaderHeight: 0,
   style: {}
