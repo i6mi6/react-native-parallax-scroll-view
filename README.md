@@ -58,14 +58,14 @@ All of the properties of `ScrollView` are supported. Please refer to the
 
 The `ParallaxScrollView` component adds a few additional properties, as described below.
 
-| Property | Type | Required | Default | Description |
-| -------- | ---- | -------- | ------- | ----------- |
-| `renderParallaxHeader` |  `func` | **Yes** | N/A | This renders the parallax header above the background. |
-| `parallaxHeaderHeight` | `number` | **Yes** | N/A | This is the height of parallax header. |
-| `headerBackgroundColor` | `string` | No | `'#000'` | This is the background color of the sticky header, and also used as parallax header background color if `renderBackground` is not provided. |
-| `contentBackgroundColor` | `string` | No | `'#fff'` | This is the background color of the content. |
-| `renderBackground` | `func` | No | Opaque background using `headerBackgroundColor`. | This renders the background of the parallax header. Can be used to display cover images for example. |
-| `renderStickyHeader` | `func` | No | N/A | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
-| `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | 0 | If `renderStickyHeader` is set, then its height must be specified. |
-| `renderFixedHeader` | `func` | No | N/A | This renders an optional fixed header that will always be visible and fixed to the top of the view (and sticky header). You must set its height and width appropriately. |
-| `renderScrollComponent` | `func` | No | Returns a `ScrollView` with the given props | A function with input `props` and outputs a `ScrollView`-like component in which the content is rendered. This is useful if you want to provide your own scrollable component. (See: [https://github.com/exponentjs/react-native-scrollable-mixin](https://github.com/exponentjs/react-native-scrollable-mixin))|
+| Property | Type | Required | Description |
+| -------- | ---- | -------- | ----------- |
+| `renderParallaxHeader` |  `func` | **Yes** |This renders the parallax header above the background. |
+| `parallaxHeaderHeight` | `number` | **Yes** |This is the height of parallax header. |
+| `headerBackgroundColor` | `string` | No | This is the background color of the sticky header, and also used as parallax header background color if `renderBackground` is not provided. (Defaults to `'#000'`) |
+| `contentBackgroundColor` | `string` | No | This is the background color of the content. (Defaults to `'#fff'`) |
+| `renderBackground` | `func` | No | This renders the background of the parallax header. Can be used to display cover images for example. (Defaults to an opaque background using `headerBackgroundColor`) |
+| `renderStickyHeader` | `func` | No | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
+| `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | If `renderStickyHeader` is set, then its height must be specified. |
+| `renderFixedHeader` | `func` | No | This renders an optional fixed header that will always be visible and fixed to the top of the view (and sticky header). You must set its height and width appropriately. |
+| `renderScrollComponent` | `func` | No | A function with input `props` and outputs a `ScrollView`-like component in which the content is rendered. This is useful if you want to provide your own scrollable component. (See: [https://github.com/exponentjs/react-native-scrollable-mixin](https://github.com/exponentjs/react-native-scrollable-mixin)) (By default, returns a `ScrollView` with the given props) |
