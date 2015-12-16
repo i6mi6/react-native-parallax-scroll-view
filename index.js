@@ -63,7 +63,7 @@ class ParallaxScrollView extends Component {
     const parallaxHeader = this._renderParallaxHeader({ parallaxHeaderHeight, stickyHeaderHeight, renderParallaxHeader });
     const bodyComponent = this._wrapChildren(children, { contentBackgroundColor, stickyHeaderHeight });
     const footerSpacer = this._renderFooterSpacer({ contentBackgroundColor });
-    const maybeStickyHeader = this._maybeRenderStickyHeader({ stickyHeaderHeight, headerBackgroundColor, renderFixedHeader, renderStickyHeader });
+    const maybeStickyHeader = this._maybeRenderStickyHeader({ parallaxHeaderHeight, stickyHeaderHeight, headerBackgroundColor, renderFixedHeader, renderStickyHeader });
 
     return (
       <View style={styles.container}>
@@ -111,10 +111,12 @@ class ParallaxScrollView extends Component {
   _onScroll(e) {
     const { onScroll: prevOnScroll = () => {} } = this.props;
     this._animatedEvent(e);
+    console.log(e.nativeEvent.contentOffset.y);
     prevOnScroll(e);
   }
 
   _renderBackground({ headerBackgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground }) {
+    const midpoint = (parallaxHeaderHeight - stickyHeaderHeight) / 2;
     return (
       <Animated.View
         style={[styles.backgroundImage, {
@@ -123,8 +125,8 @@ class ParallaxScrollView extends Component {
             width: window.width,
             transform: [{
               translateY: this.state.scrollY.interpolate({
-                inputRange: [0, parallaxHeaderHeight - stickyHeaderHeight],
-                outputRange: [0, -parallaxHeaderHeight],
+                inputRange: [0, midpoint],
+                outputRange: [0, -midpoint],
                 extrapolateRight: 'extend',
                 extrapolateLeft: 'clamp'
               })
@@ -144,6 +146,7 @@ class ParallaxScrollView extends Component {
   }
 
   _renderParallaxHeader({ parallaxHeaderHeight, stickyHeaderHeight, renderParallaxHeader }) {
+    const midpoint = (parallaxHeaderHeight - stickyHeaderHeight) / 2;
     return (
       <View style={styles.parallaxHeaderContainer}>
         <Animated.View
@@ -154,7 +157,7 @@ class ParallaxScrollView extends Component {
                     extrapolate: 'clamp'
                   }),
                   opacity: this.state.scrollY.interpolate({
-                    inputRange: [0, (parallaxHeaderHeight - stickyHeaderHeight) / 2 - 20, (parallaxHeaderHeight - stickyHeaderHeight) / 2],
+                    inputRange: [0, midpoint - 20, midpoint],
                     outputRange: [1, .9, 0],
                     extrapolate: 'extend'
                   })
@@ -189,8 +192,9 @@ class ParallaxScrollView extends Component {
     );
   }
 
-  _maybeRenderStickyHeader({ stickyHeaderHeight, headerBackgroundColor, renderFixedHeader, renderStickyHeader }) {
+  _maybeRenderStickyHeader({ parallaxHeaderHeight, stickyHeaderHeight, headerBackgroundColor, renderFixedHeader, renderStickyHeader }) {
     if (renderStickyHeader) {
+      const midpoint = (parallaxHeaderHeight - stickyHeaderHeight) / 2;
       return (
         <View style={[styles.stickyHeader, { height: stickyHeaderHeight }]}>
           <Animated.View
@@ -198,8 +202,8 @@ class ParallaxScrollView extends Component {
                 backgroundColor: headerBackgroundColor,
                 height: stickyHeaderHeight,
                 opacity: this.state.scrollY.interpolate({
-                  inputRange: [-window.height, 0, stickyHeaderHeight],
-                  outputRange: [0, 0, 1],
+                  inputRange: [0, midpoint],
+                  outputRange: [0, 1],
                   extrapolate: 'clamp'
                 })
               }}>
@@ -207,8 +211,8 @@ class ParallaxScrollView extends Component {
                 style={{
                   transform: [{
                     translateY: this.state.scrollY.interpolate({
-                      inputRange: [-window.height, 0, stickyHeaderHeight],
-                      outputRange: [stickyHeaderHeight, stickyHeaderHeight, 0],
+                      inputRange: [0, midpoint],
+                      outputRange: [stickyHeaderHeight, 0],
                       extrapolate: 'clamp'
                     })
                   }]
