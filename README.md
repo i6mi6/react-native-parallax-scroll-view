@@ -1,10 +1,14 @@
 # react-native-parallax-scroll-view
 
-A `ScrollView`-like component with parallax and sticky header support.
+A `ScrollView`-like component that:
 
+- Has a parallax header
+- Has an optional sticky header
+- Is composable with any component that expects a `ScrollView` (e.g. `ListView` or [`InfiniteScrollView`](https://github.com/exponentjs/react-native-infinite-scroll-view))
+- Can be nested within other views
+- Works on iOS and Android
 
-
-Tested with react-native 0.16.0 on Android and iOS.
+(Tested with react-native 0.16.0 on Android and iOS.
 
 ## Installation
 
@@ -17,7 +21,7 @@ $ npm install react-native-parallax-scroll-view --save
 
 | iOS | Android |
 | --- | ------- |
-| ![](./parallax-ios.gif) | ![](./parallax-android.gif) |
+| ![](./demo.ios.gif) | ![](./demo.android.gif) |
 
 ## Basic Usage
 
