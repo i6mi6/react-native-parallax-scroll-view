@@ -9,8 +9,8 @@
   },
   "files": [
     "src",
-    "parallax-ios.gif",
-    "parallax-android.gif",
+    "demo.ios.gif",
+    "demo.android.gif",
     "README.md",
     "LICENSE"
   ],
