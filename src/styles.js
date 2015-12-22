@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     position: 'absolute',
     backgroundColor: 'transparent',
+    overflow: 'hidden',
     top: 0
   },
   stickyHeader: {
