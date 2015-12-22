@@ -39,7 +39,7 @@ class ParallaxScrollView extends Component {
       console.error('Property `stickyHeaderHeight` must be set if `renderStickyHeader` is used')
     }
     this.state = { scrollY: new Animated.Value(0) };
-    this._footerComponent = null;
+    this._footerComponent = { setNativeProps() {} }; // Initial stub
     this._footerHeight = 0;
     this._animatedEvent = Animated.event([{nativeEvent: { contentOffset: { y: this.state.scrollY } } }]);
   }
@@ -154,7 +154,7 @@ class ParallaxScrollView extends Component {
             }]
           }]}>
         <View>
-          { renderBackground && renderBackground() }
+          { renderBackground() }
         </View>
       </Animated.View>
     );
@@ -177,7 +177,7 @@ class ParallaxScrollView extends Component {
                     extrapolate: 'extend'
                   })
                 }]}>
-          { renderParallaxHeader && renderParallaxHeader() }
+          { renderParallaxHeader() }
         </Animated.View>
       </View>
     );
@@ -247,6 +247,8 @@ class ParallaxScrollView extends Component {
 ParallaxScrollView.propTypes = IPropTypes;
 
 ParallaxScrollView.defaultProps = {
+  renderBackground: () => <View/>,
+  renderParallaxHeader: () => <View/>,
   headerBackgroundColor: '#000',
   contentBackgroundColor: '#fff',
   onChangeHeaderVisibility: () => {},
