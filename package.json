@@ -1,14 +1,14 @@
 {
   "name": "react-native-parallax-scroll-view",
-  "version": "0.16.17",
+  "version": "0.16.18",
   "description": "A ScrollView-like component with parallax and sticky header support",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/jaysoo/react-native-parallax-listview"
   },
   "files": [
-    "index",
+    "src",
     "parallax-ios.gif",
     "parallax-android.gif",
     "README.md",
