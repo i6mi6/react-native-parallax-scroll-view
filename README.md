@@ -46,10 +46,12 @@ render() {
 
 ## Examples
 
-Please refer to the [Example](./Example/example.js) provided to see how `ParallaxScrollView` can be used in
+Please refer to the [ListView example](./examples/ListView/Talks.js) provided to see how `ParallaxScrollView` can be used in
 combination with `ListView`.
 
-The [Android example](./Example/index.android.js) shows how you can use `PullToRefreshViewAndroid` with `ParallaxScrollView`.
+The [Android ListView example](./examples/ListView/index.android.js) shows how you can use `PullToRefreshViewAndroid` with `ParallaxScrollView`.
+
+There are more examples in the [examples](./examples) folder.
 
 ## Usage (API)
 
