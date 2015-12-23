@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jaysoo/react-native-parallax-listview"
+    "url": "https://github.com/jaysoo/react-native-parallax-scroll-view"
   },
   "files": [
     "src",
