@@ -11,14 +11,6 @@ import React, {
 import Talks from './Talks';
 
 class AndroidExample extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  shouldComponentUpdate() {
-    return false;
-  }
-
   render() {
     return (
       <PullToRefreshViewAndroid
