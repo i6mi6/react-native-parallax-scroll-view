@@ -5,15 +5,17 @@ const {
   Dimensions,
   ScrollView,
   View
-} = React;
+  } = React;
 
 const styles = require('./styles');
 
-const { any, func, number, string } = React.PropTypes;
+const { func, number, string } = React.PropTypes;
 
 const window = Dimensions.get('window');
 
 const SCROLLVIEW_REF = 'ScrollView';
+
+const midpoint = (a, b) => (a - b) / 2;
 
 // Properties accepted by `ParallaxScrollView`.
 const IPropTypes = {
@@ -42,7 +44,6 @@ class ParallaxScrollView extends Component {
     };
     this._footerComponent = { setNativeProps() {} }; // Initial stub
     this._footerHeight = 0;
-    this._animatedEvent = Animated.event([{nativeEvent: { contentOffset: { y: this.state.scrollY } } }]);
   }
 
   render() {
@@ -59,7 +60,7 @@ class ParallaxScrollView extends Component {
       renderStickyHeader,
       style,
       ...scrollViewProps
-    } = this.props;
+      } = this.props;
 
     const background = this._renderBackground({ headerBackgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground });
     const parallaxHeader = this._renderParallaxHeader({ parallaxHeaderHeight, stickyHeaderHeight, renderParallaxHeader });
@@ -74,11 +75,11 @@ class ParallaxScrollView extends Component {
         { background }
         {
           React.cloneElement(scrollElement, {
-            ref: SCROLLVIEW_REF,
-            style: [styles.scrollView, scrollElement.props.style],
-            scrollEventThrottle: 16,
-            onScroll: this._onScroll.bind(this),
-          },
+              ref: SCROLLVIEW_REF,
+              style: [styles.scrollView, scrollElement.props.style],
+              scrollEventThrottle: 16,
+              onScroll: this._onScroll.bind(this),
+            },
             parallaxHeader,
             bodyComponent,
             footerSpacer
@@ -118,19 +119,33 @@ class ParallaxScrollView extends Component {
       stickyHeaderHeight,
       onChangeHeaderVisibility,
       onScroll: prevOnScroll = () => {}
-    } = this.props;
+      } = this.props;
 
-    const midpoint = (parallaxHeaderHeight - stickyHeaderHeight) / 2;
+    const mid = midpoint(parallaxHeaderHeight, stickyHeaderHeight);
 
-    this._animatedEvent(e);
+    this._maybeUpdateScrollPosition(e);
 
-    if (e.nativeEvent.contentOffset.y >= midpoint) {
+    if (e.nativeEvent.contentOffset.y >= mid) {
       onChangeHeaderVisibility(false);
     } else {
       onChangeHeaderVisibility(true);
     }
 
     prevOnScroll(e);
+  }
+
+  // This optimizes the state update of current scrollY since we don't need to
+  // perform any updates when user has scrolled past the midpoint of
+  // parallaxHeaderHeight - stickyHeaderHeight.
+  _maybeUpdateScrollPosition(e) {
+    const { parallaxHeaderHeight, stickyHeaderHeight } = this.props;
+    const { scrollY } = this.state;
+    const { nativeEvent: { contentOffset: { y: offsetY } } } = e;
+    const mid = midpoint(parallaxHeaderHeight, stickyHeaderHeight);
+
+    if (offsetY <= mid || scrollY._value <= mid) {
+      scrollY.setValue(offsetY);
+    }
   }
 
   _maybeUpdateViewDimensions(e) {
@@ -146,7 +161,7 @@ class ParallaxScrollView extends Component {
 
   _renderBackground({ headerBackgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground }) {
     const { viewWidth, viewHeight, scrollY } = this.state;
-    const midpoint = (parallaxHeaderHeight - stickyHeaderHeight) / 2;
+    const mid = midpoint(parallaxHeaderHeight, stickyHeaderHeight);
     return (
       <Animated.View
         style={[styles.backgroundImage, {
@@ -155,8 +170,8 @@ class ParallaxScrollView extends Component {
             width: viewWidth,
             transform: [{
               translateY: scrollY.interpolate({
-                inputRange: [0, midpoint],
-                outputRange: [0, -midpoint],
+                inputRange: [0, mid],
+                outputRange: [0, -mid],
                 extrapolateRight: 'extend',
                 extrapolateLeft: 'clamp'
               })
@@ -176,7 +191,7 @@ class ParallaxScrollView extends Component {
   }
 
   _renderParallaxHeader({ parallaxHeaderHeight, stickyHeaderHeight, renderParallaxHeader }) {
-    const midpoint = (parallaxHeaderHeight - stickyHeaderHeight) / 2;
+    const mid = midpoint(parallaxHeaderHeight, stickyHeaderHeight);
     return (
       <View style={styles.parallaxHeaderContainer}>
         <Animated.View
@@ -187,7 +202,7 @@ class ParallaxScrollView extends Component {
                     extrapolate: 'clamp'
                   }),
                   opacity: this.state.scrollY.interpolate({
-                    inputRange: [0, midpoint - 20, midpoint],
+                    inputRange: [0, mid - 20, mid],
                     outputRange: [1, .9, 0],
                     extrapolate: 'extend'
                   })
@@ -224,26 +239,26 @@ class ParallaxScrollView extends Component {
   }
 
   _maybeRenderStickyHeader({ parallaxHeaderHeight, stickyHeaderHeight, headerBackgroundColor, renderFixedHeader, renderStickyHeader }) {
-    const { viewWidth, viewHeight, scrollY } = this.state;
+    const { viewWidth, scrollY } = this.state;
     if (renderStickyHeader) {
-      const midpoint = (parallaxHeaderHeight - stickyHeaderHeight) / 2;
+      const mid = midpoint(parallaxHeaderHeight, stickyHeaderHeight);
       return (
         <View style={[styles.stickyHeader, { width: viewWidth, height: stickyHeaderHeight }]}>
           <Animated.View
-              style={{
+            style={{
                 backgroundColor: headerBackgroundColor,
                 height: stickyHeaderHeight,
                 opacity: scrollY.interpolate({
-                  inputRange: [0, midpoint],
+                  inputRange: [0, mid],
                   outputRange: [0, 1],
                   extrapolate: 'clamp'
                 })
               }}>
             <Animated.View
-                style={{
+              style={{
                   transform: [{
                     translateY: scrollY.interpolate({
-                      inputRange: [0, midpoint],
+                      inputRange: [0, mid],
                       outputRange: [stickyHeaderHeight, 0],
                       extrapolate: 'clamp'
                     })
