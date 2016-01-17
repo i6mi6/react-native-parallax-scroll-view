@@ -5,7 +5,7 @@ const {
   Dimensions,
   ScrollView,
   View
-  } = React;
+} = React;
 
 const styles = require('./styles');
 
@@ -60,7 +60,7 @@ class ParallaxScrollView extends Component {
       renderStickyHeader,
       style,
       ...scrollViewProps
-      } = this.props;
+    } = this.props;
 
     const background = this._renderBackground({ headerBackgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground });
     const parallaxHeader = this._renderParallaxHeader({ parallaxHeaderHeight, stickyHeaderHeight, renderParallaxHeader });
