@@ -72,7 +72,7 @@ class ParallaxScrollView extends Component {
     return (
       <View style={[style, styles.container]}
             onLayout={(e) => this._maybeUpdateViewDimensions(e)}>
-        { background }
+        { renderParallaxHeader() && background }
         {
           React.cloneElement(scrollElement, {
               ref: SCROLLVIEW_REF,
@@ -81,6 +81,7 @@ class ParallaxScrollView extends Component {
               onScroll: this._onScroll.bind(this),
             },
             parallaxHeader,
+            renderParallaxHeader() ? null : background,
             bodyComponent,
             footerSpacer
           )

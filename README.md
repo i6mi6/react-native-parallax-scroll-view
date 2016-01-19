@@ -66,7 +66,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 
 | Property | Type | Required | Description |
 | -------- | ---- | -------- | ----------- |
-| `renderParallaxHeader` |  `func` | **Yes** |This renders the parallax header above the background. |
+| `renderParallaxHeader` |  `func` | **Yes** |This renders the parallax header above the background. If returns `null` the background will be on top.|
 | `parallaxHeaderHeight` | `number` | **Yes** |This is the height of parallax header. |
 | `headerBackgroundColor` | `string` | No | This is the background color of the sticky header, and also used as parallax header background color if `renderBackground` is not provided. (Defaults to `'#000'`) |
 | `contentBackgroundColor` | `string` | No | This is the background color of the content. (Defaults to `'#fff'`) |
