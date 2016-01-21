@@ -1,4 +1,4 @@
-![](https://img.shields.io/npm/dm/react-native-parallax-scroll-view.svg?style=flat-square)
+![https://www.npmjs.com/package/react-native-parallax-scroll-view](https://img.shields.io/npm/dm/react-native-parallax-scroll-view.svg?style=flat-square)
 
 # react-native-parallax-scroll-view
 
