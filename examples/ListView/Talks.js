@@ -31,45 +31,7 @@ class Talks extends Component {
         'The Functional Database',
         'Deconstructing the Database',
         'Hammock Driven Development',
-        'Value of Values',
-        'Are We There Yet?',
-        'The Language of the System',
-        'Design, Composition, and Performance',
-        'Clojure core.async',
-        'The Functional Database',
-        'Deconstructing the Database',
-        'Hammock Driven Development',
-        'Value of Values',
-        'Are We There Yet?',
-        'The Language of the System',
-        'Design, Composition, and Performance',
-        'Clojure core.async',
-        'The Functional Database',
-        'Deconstructing the Database',
-        'Hammock Driven Development',
-        'Value of Values',
-        'Are We There Yet?',
-        'The Language of the System',
-        'Design, Composition, and Performance',
-        'Clojure core.async',
-        'The Functional Database',
-        'Deconstructing the Database',
-        'Hammock Driven Development',
-        'Value of Values',
-        'Are We There Yet?',
-        'The Language of the System',
-        'Design, Composition, and Performance',
-        'Clojure core.async',
-        'The Functional Database',
-        'Deconstructing the Database',
-        'Hammock Driven Development',
-        'Value of Values',
-        'Are We There Yet?',
-        'The Language of the System',
-        'Design, Composition, and Performance',
-        'Clojure core.async',
-        'The Functional Database',
-        'Deconstructing the Database'
+        'Value of Values'
       ])
     };
   }
@@ -84,6 +46,8 @@ class Talks extends Component {
           headerBackgroundColor="#333"
           stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
           parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
+          headerSpeed={5}
+          backgroundSpeed={10}
 
           renderBackground={() => (
             <View key="background">
