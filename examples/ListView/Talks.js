@@ -46,7 +46,6 @@ class Talks extends Component {
           headerBackgroundColor="#333"
           stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
           parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
-          headerSpeed={5}
           backgroundSpeed={10}
 
           renderBackground={() => (
@@ -62,22 +61,7 @@ class Talks extends Component {
             </View>
           )}
 
-          renderStickyHeader={() => (
-            <View key="sticky-header" style={styles.stickySection}>
-              <Text style={styles.stickySectionText}>Rich Hickey Talks</Text>
-            </View>
-          )}
-
-          renderFixedHeader={() => (
-            <View key="fixed-header" style={styles.fixedSection}>
-              <Text style={styles.fixedSectionText}
-                    onPress={() => this.refs.ParallaxView.getScrollResponder().scrollResponderScrollTo(0, 0)}>
-                Scroll to top
-              </Text>
-            </View>
-          )}
-
-          renderParallaxHeader={() => (
+          renderForeground={() => (
             <View key="parallax-header" style={ styles.parallaxHeader }>
               <Image style={ styles.avatar } source={{
                 uri: 'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',
@@ -89,6 +73,21 @@ class Talks extends Component {
               </Text>
               <Text style={ styles.sectionTitleText }>
                 CTO of Cognitec, Creator of Clojure
+              </Text>
+            </View>
+          )}
+
+          renderStickyHeader={() => (
+            <View key="sticky-header" style={styles.stickySection}>
+              <Text style={styles.stickySectionText}>Rich Hickey Talks</Text>
+            </View>
+          )}
+
+          renderFixedHeader={() => (
+            <View key="fixed-header" style={styles.fixedSection}>
+              <Text style={styles.fixedSectionText}
+                    onPress={() => this.refs.ParallaxView.getScrollResponder().scrollResponderScrollTo(0, 0)}>
+                Scroll to top
               </Text>
             </View>
           )}>
