@@ -46,8 +46,8 @@ class Talks extends Component {
           headerBackgroundColor="#333"
           stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
           parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
-          headerSpeed={5}
-          backgroundSpeed={10}
+          headerSpeed={6}
+          backgroundSpeed={15}
 
           renderBackground={() => (
             <View key="background">
@@ -87,7 +87,7 @@ class Talks extends Component {
               <Text style={ styles.sectionSpeakerText }>
                 Talks by Rich Hickey
               </Text>
-              <Text style={ styles.sectionTitleText }>
+              <Text style={ styles.sectionTitleText } onPress={() => alert('Hello')}>
                 CTO of Cognitec, Creator of Clojure
               </Text>
             </View>

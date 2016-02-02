@@ -5,19 +5,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent'
   },
-  parallaxHeaderContainer: {
+  parallaxHeader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
     backgroundColor: 'transparent',
     overflow: 'hidden'
   },
-  parallaxHeader: {
-    backgroundColor: 'transparent',
+  parallaxContent: {
     overflow: 'hidden'
   },
   backgroundImage: {
     position: 'absolute',
+    top: 0,
     backgroundColor: 'transparent',
-    overflow: 'hidden',
-    top: 0
+    overflow: 'hidden'
   },
   stickyHeader: {
     backgroundColor: 'transparent',

@@ -76,14 +76,15 @@ class ParallaxScrollView extends Component {
       <View style={[style, styles.container]}
             onLayout={(e) => this._maybeUpdateViewDimensions(e)}>
         { background }
+        { parallaxHeader }
         {
           React.cloneElement(scrollElement, {
               ref: SCROLLVIEW_REF,
               style: [styles.scrollView, scrollElement.props.style],
               scrollEventThrottle: 16,
-              onScroll: this._onScroll.bind(this),
+              onScroll: this._onScroll.bind(this)
             },
-            parallaxHeader,
+            <View style={{ height: parallaxHeaderHeight }}/>,
             bodyComponent,
             footerSpacer
           )
@@ -196,29 +197,20 @@ class ParallaxScrollView extends Component {
     const { scrollY } = this.state;
     const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight);
     return (
-      <View style={styles.parallaxHeaderContainer}>
-        <Animated.View
-          style={[styles.parallaxHeader, {
-                  height: parallaxHeaderHeight,
-                  opacity: scrollY.interpolate({
-                    inputRange: [0, p - 20, p],
-                    outputRange: [1, .9, 0],
-                    extrapolate: 'extend'
-                  })
-                }]}>
-            <Animated.View
-              style={{
-                height: scrollY.interpolate({
+      <Animated.View
+        style={[styles.parallaxHeader, {
+                opacity: scrollY.interpolate({
+                  inputRange: [0, p - 20, p],
+                  outputRange: [1, .9, 0],
+                  extrapolate: 'extend'
+                }),
+                top: scrollY.interpolate({
                   inputRange: [0, p],
-                  outputRange: [parallaxHeaderHeight, parallaxHeaderHeight * headerSpeed],
-                  extrapolateRight: 'extend',
-                  extrapolateLeft: 'clamp'
+                  outputRange: [0, -parallaxHeaderHeight / headerSpeed]
                 })
-              }}>
-            { renderParallaxHeader() }
-          </Animated.View>
-        </Animated.View>
-      </View>
+              }]}>
+        { renderParallaxHeader() }
+      </Animated.View>
     );
   }
 
@@ -226,6 +218,7 @@ class ParallaxScrollView extends Component {
     const { viewHeight } = this.state;
     return (
       <View
+        pointerEvents="auto"
         style={{ backgroundColor: contentBackgroundColor }}
         onLayout={e => {
                 // Adjust the bottom height so we can scroll the parallax header all the way up.
