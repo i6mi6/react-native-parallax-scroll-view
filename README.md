@@ -81,6 +81,10 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 
 ## Changelog
 
+### 0.17.2
+
+- Adds optional `fadeOutForeground` property that can be set to false to disable fading out of the foreground.
+
 ### 0.17.1
 
 - **Breaking:** `renderParallaxHeader` is now `renderForeground`, and now scrolls with the same speed as scroll content. 
