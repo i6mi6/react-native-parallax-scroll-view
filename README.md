@@ -21,7 +21,7 @@ $ npm install react-native-parallax-scroll-view --save
 
 | iOS | Android |
 | --- | ------- |
-| ![](./demo.ios.gif) | ![](./demo.android.20160117.gif) |
+| ![](./demo.ios.0.17.2.gif) | ![](./demo.android.0.17.2.gif) |
 
 ## Basic Usage
 
@@ -87,6 +87,6 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 
 ### 0.17.1
 
-- **Breaking:** `renderParallaxHeader` is now `renderForeground`, and now scrolls with the same speed as scroll content. 
+- **Breaking:** `renderParallaxHeader` is now `renderForeground`, and now scrolls with the same speed as scroll content.
 - Refactored parallax header calculations to keep their scroll speeds consistent with user scroll speed.
 - Parallax effect is now calculated using the `backgroundSpeed` prop.
