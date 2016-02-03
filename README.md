@@ -10,8 +10,6 @@ A `ScrollView`-like component that:
 - Can be nested within other views
 - Works on iOS and Android
 
-(Tested with react-native 0.16.0 on Android and iOS.
-
 ## Installation
 
 ```
@@ -37,7 +35,7 @@ render() {
       backgroundColor="blue"
       contentBackgroundColor="pink"
       parallaxHeaderHeight={300}
-      renderParallaxHeader={() => (
+      renderForeground={() => (
        <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Hello World!</Text>
         </View>
@@ -83,7 +81,8 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 
 ## Changelog
 
-### 0.17.0
+### 0.17.1
 
+- **Breaking:** `renderParallaxHeader` is now `renderForeground`, and now scrolls with the same speed as scroll content. 
 - Refactored parallax header calculations to keep their scroll speeds consistent with user scroll speed.
 - Parallax effect is now calculated using the `backgroundSpeed` prop.
