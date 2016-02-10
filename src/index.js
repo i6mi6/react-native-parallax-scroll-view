@@ -24,6 +24,7 @@ const IPropTypes = {
   backgroundColor: string,
   backgroundScrollSpeed: number,
   fadeOutForeground: bool,
+  fadeOutBackground: bool,
   contentBackgroundColor: string,
   onChangeHeaderVisibility: func,
   parallaxHeaderHeight: number.isRequired,
@@ -60,6 +61,7 @@ class ParallaxScrollView extends Component {
       children,
       contentBackgroundColor,
       fadeOutForeground,
+      fadeOutBackground,
       parallaxHeaderHeight,
       renderBackground,
       renderFixedHeader,
@@ -72,7 +74,7 @@ class ParallaxScrollView extends Component {
       ...scrollViewProps
     } = this.props;
 
-    const background = this._renderBackground({ backgroundScrollSpeed, backgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground });
+    const background = this._renderBackground({ fadeOutBackground, backgroundScrollSpeed, backgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground });
     const foreground = this._renderForeground({ fadeOutForeground, parallaxHeaderHeight, stickyHeaderHeight, renderForeground: renderForeground || renderParallaxHeader });
     const bodyComponent = this._wrapChildren(children, { contentBackgroundColor, stickyHeaderHeight });
     const footerSpacer = this._renderFooterSpacer({ contentBackgroundColor });
@@ -168,7 +170,7 @@ class ParallaxScrollView extends Component {
     }
   }
 
-  _renderBackground({ backgroundScrollSpeed, backgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground }) {
+  _renderBackground({ fadeOutBackground, backgroundScrollSpeed, backgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground }) {
     const { viewWidth, viewHeight, scrollY } = this.state;
     const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight);
     return (
@@ -177,6 +179,13 @@ class ParallaxScrollView extends Component {
             backgroundColor: backgroundColor,
             height: parallaxHeaderHeight,
             width: viewWidth,
+            opacity: fadeOutBackground
+                     ? scrollY.interpolate({
+                      inputRange: [0, p *  (1/2), p * (3/4), p],
+                      outputRange: [1, 0.3, 0.1, 0],
+                      extrapolate: 'clamp'
+                    })
+                    : 1,
             transform: [{
               translateY: scrollY.interpolate({
                 inputRange: [0, p],
