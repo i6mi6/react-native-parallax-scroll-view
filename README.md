@@ -81,6 +81,10 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 
 ## Changelog
 
+### 0.17.4
+
+- The background now fades out in the same manner as the foreground. Thanks @generalChaos for the PR.
+
 ### 0.17.3
 
 - Allows `renderFixedHeader` to be used without providing `renderStickyHeader` and `stickyHeaderHeight`.
