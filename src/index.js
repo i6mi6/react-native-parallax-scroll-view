@@ -112,7 +112,7 @@ class ParallaxScrollView extends Component {
     return this.getScrollResponder().getInnerViewNode();
   }
   scrollTo(destY, destX) {
-    this.getScrollResponder().scrollTo(destY, destX);
+    this.getScrollResponder().scrollTo({ x: destY, y: destX });
   }
   scrollWithoutAnimationTo(destY, destX) {
     this.getScrollResponder().scrollWithoutAnimationTo(destY, destX);
