@@ -86,7 +86,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 
 ### 0.18.0 (Compatibility with React Native 0.20.0)
 
-- **Breaking:** Removes `ParallaxScrollView#scrollWithoutAnimationTo` since this has been deprecated in React Native.
+- **Breaking:** Removes `ParallaxScrollView#scrollWithoutAnimationTo` since this has been deprecated in React Native. If you used this method previously, use `scrollTo` instead.
 - Adds `ParallaxScrollView#getScrollableNode` method, which is required in React Native 0.20.0 for components implementing
   `ScrollView` interface.
 
