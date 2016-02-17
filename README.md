@@ -81,7 +81,8 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | `renderStickyHeader` | `func` | No | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | If `renderStickyHeader` is set, then its height must be specified. |
 
-## Changelog
+
+## Latest changes
 
 ### 0.18.0 (Compatibility with React Native 0.20.0)
 
@@ -93,16 +94,4 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 
 - The background now fades out in the same manner as the foreground. Thanks @generalChaos for the PR.
 
-### 0.17.3
-
-- Allows `renderFixedHeader` to be used without providing `renderStickyHeader` and `stickyHeaderHeight`.
-
-### 0.17.2
-
-- Adds optional `fadeOutForeground` property that can be set to false to disable fading out of the foreground.
-
-### 0.17.1
-
-- **Breaking:** `renderParallaxHeader` is now `renderForeground`, and now scrolls with the same speed as scroll content.
-- Refactored parallax header calculations to keep their scroll speeds consistent with user scroll speed.
-- Parallax effect is now calculated using the `backgroundSpeed` prop.
+See full changelog [here](./CHANGELOG.md).
