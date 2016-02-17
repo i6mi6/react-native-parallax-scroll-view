@@ -86,7 +86,7 @@ class Talks extends Component {
           renderFixedHeader={() => (
             <View key="fixed-header" style={styles.fixedSection}>
               <Text style={styles.fixedSectionText}
-                    onPress={() => this.refs.ParallaxView.getScrollResponder().scrollResponderScrollTo(0, 0)}>
+                    onPress={() => this.refs.ParallaxView.scrollTo({ x: 0, y: 0 })}>
                 Scroll to top
               </Text>
             </View>

@@ -81,6 +81,12 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 
 ## Changelog
 
+### 0.18.0 (Compatibility with React Native 0.20.0)
+
+- **Breaking:** Removes `ParallaxScrollView#scrollWithoutAnimationTo` since this has been deprecated in React Native.
+- Adds `ParallaxScrollView#getScrollableNode` method, which is required in React Native 0.20.0 for components implementing
+  `ScrollView` interface.
+
 ### 0.17.4
 
 - The background now fades out in the same manner as the foreground. Thanks @generalChaos for the PR.

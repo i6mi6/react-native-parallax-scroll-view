@@ -108,21 +108,14 @@ class ParallaxScrollView extends Component {
   getScrollResponder() {
     return this.refs[SCROLLVIEW_REF].getScrollResponder();
   }
+  getScrollableNode() {
+    return this.getScrollResponder().getScrollableNode();
+  }
   getInnerViewNode() {
     return this.getScrollResponder().getInnerViewNode();
   }
-  scrollTo(destY, destX) {
-    const sr = this.getScrollResponder();
-    // TODO: Remove this when RN 0.21.0 is released.
-    // This is to make ParallaxScrollView compatible with older RN versions.
-    if (sr.scrollTo.length === 2) {
-      this.getScrollResponder().scrollTo(destY, destX);
-    } else {
-      this.getScrollResponder().scrollTo({ x: destY, y: destX });
-    }
-  }
-  scrollWithoutAnimationTo(destY, destX) {
-    this.getScrollResponder().scrollWithoutAnimationTo(destY, destX);
+  scrollTo(...args) {
+    this.getScrollResponder().scrollTo(...args);
   }
   setNativeProps(props) {
     this.refs[SCROLLVIEW_REF].setNativeProps(props);
