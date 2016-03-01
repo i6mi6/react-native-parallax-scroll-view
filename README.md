@@ -95,3 +95,9 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 - The background now fades out in the same manner as the foreground. Thanks @generalChaos for the PR.
 
 See full changelog [here](./CHANGELOG.md).
+
+## Contributing
+
+I welcome contributions! Please open an issues if you have any feature ideas
+or find any bugs. I also accept pull requests with open arms. I will
+go over the issues when I have time. :)
