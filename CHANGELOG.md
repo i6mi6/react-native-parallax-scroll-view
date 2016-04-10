@@ -1,5 +1,10 @@
 ## Changelog
 
+### 0.18.1
+
+- Fixes error when inspecting the sticky header due to cyclical object structure
+  on `style` (#23)
+  
 ### 0.18.0 (Compatibility with React Native 0.20.0)
 
 - **Breaking:** Removes `ParallaxScrollView#scrollWithoutAnimationTo` since this has been deprecated in React Native. If you used this method previously, use `scrollTo` instead.

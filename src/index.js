@@ -19,6 +19,15 @@ const pivotPoint = (a, b) => (a - b);
 
 const renderEmpty = () => <View/>;
 
+// Override `toJSON` of interpolated value because of
+// an error when serializing style on view inside inspector.
+// See: https://github.com/jaysoo/react-native-parallax-scroll-view/issues/23
+const interpolate = (value, opts) => {
+  const x = value.interpolate(opts);
+  x.toJSON = () => x.__getValue();
+  return x;
+};
+
 // Properties accepted by `ParallaxScrollView`.
 const IPropTypes = {
   backgroundColor: string,
@@ -180,21 +189,21 @@ class ParallaxScrollView extends Component {
             height: parallaxHeaderHeight,
             width: viewWidth,
             opacity: fadeOutBackground
-                     ? scrollY.interpolate({
+                     ? interpolate(scrollY, {
                       inputRange: [0, p *  (1/2), p * (3/4), p],
                       outputRange: [1, 0.3, 0.1, 0],
                       extrapolate: 'clamp'
                     })
                     : 1,
             transform: [{
-              translateY: scrollY.interpolate({
+              translateY: interpolate(scrollY, {
                 inputRange: [0, p],
                 outputRange: [0, -(p / backgroundScrollSpeed)],
                 extrapolateRight: 'extend',
                 extrapolateLeft: 'clamp'
               })
             }, {
-              scale: scrollY.interpolate({
+              scale: interpolate(scrollY, {
                 inputRange: [-viewHeight, 0],
                 outputRange: [5, 1],
                 extrapolate: 'clamp'
@@ -217,7 +226,7 @@ class ParallaxScrollView extends Component {
           style={[styles.parallaxHeader, {
                   height: parallaxHeaderHeight,
                   opacity: fadeOutForeground
-                     ? scrollY.interpolate({
+                     ? interpolate(scrollY, {
                       inputRange: [0, p *  (1/2), p * (3/4), p],
                       outputRange: [1, 0.3, 0.1, 0],
                       extrapolate: 'clamp'
@@ -270,7 +279,7 @@ class ParallaxScrollView extends Component {
                   style={{
                   backgroundColor: backgroundColor,
                   height: stickyHeaderHeight,
-                  opacity: scrollY.interpolate({
+                  opacity: interpolate(scrollY, {
                     inputRange: [0, p],
                     outputRange: [0, 1],
                     extrapolate: 'clamp'
@@ -279,7 +288,7 @@ class ParallaxScrollView extends Component {
                   <Animated.View
                     style={{
                     transform: [{
-                      translateY: scrollY.interpolate({
+                      translateY: interpolate(scrollY, {
                         inputRange: [0, p],
                         outputRange: [stickyHeaderHeight, 0],
                         extrapolate: 'clamp'

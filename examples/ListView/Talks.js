@@ -39,69 +39,71 @@ class Talks extends Component {
   render() {
     const { onScroll = () => {} } = this.props;
     return (
-      <ParallaxScrollView
-          ref="ParallaxView"
-          onScroll={onScroll}
+      <ListView
+        ref="ListView"
+        style={styles.container}
+        dataSource={ this.state.dataSource }
+        renderRow={(rowData) => (
+          <View key={rowData} style={ styles.row }>
+            <Text style={ styles.rowText }>
+              { rowData }
+            </Text>
+          </View>
+         )}
+        renderScrollComponent={props => (
+          <ParallaxScrollView
+            onScroll={onScroll}
 
-          headerBackgroundColor="#333"
-          stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
-          parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
-          backgroundSpeed={10}
+            headerBackgroundColor="#333"
+            stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
+            parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
+            backgroundSpeed={10}
 
-          renderBackground={() => (
-            <View key="background">
-              <Image source={{uri: 'https://i.ytimg.com/vi/P-NZei5ANaQ/maxresdefault.jpg',
+            renderBackground={() => (
+              <View key="background">
+                <Image source={{uri: 'https://i.ytimg.com/vi/P-NZei5ANaQ/maxresdefault.jpg',
+                                width: window.width,
+                                height: PARALLAX_HEADER_HEIGHT}}/>
+                <View style={{position: 'absolute',
+                              top: 0,
                               width: window.width,
+                              backgroundColor: 'rgba(0,0,0,.4)',
                               height: PARALLAX_HEADER_HEIGHT}}/>
-              <View style={{position: 'absolute',
-                            top: 0,
-                            width: window.width,
-                            backgroundColor: 'rgba(0,0,0,.4)',
-                            height: PARALLAX_HEADER_HEIGHT}}/>
-            </View>
-          )}
+              </View>
+            )}
 
-          renderForeground={() => (
-            <View key="parallax-header" style={ styles.parallaxHeader }>
-              <Image style={ styles.avatar } source={{
-                uri: 'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',
-                width: AVATAR_SIZE,
-                height: AVATAR_SIZE
-              }}/>
-              <Text style={ styles.sectionSpeakerText }>
-                Talks by Rich Hickey
-              </Text>
-              <Text style={ styles.sectionTitleText }>
-                CTO of Cognitec, Creator of Clojure
-              </Text>
-            </View>
-          )}
-
-          renderStickyHeader={() => (
-            <View key="sticky-header" style={styles.stickySection}>
-              <Text style={styles.stickySectionText}>Rich Hickey Talks</Text>
-            </View>
-          )}
-
-          renderFixedHeader={() => (
-            <View key="fixed-header" style={styles.fixedSection}>
-              <Text style={styles.fixedSectionText}
-                    onPress={() => this.refs.ParallaxView.scrollTo({ x: 0, y: 0 })}>
-                Scroll to top
-              </Text>
-            </View>
-          )}>
-        <ListView
-            style={styles.container}
-            dataSource={ this.state.dataSource }
-            renderRow={(rowData) => (
-              <View key={rowData} style={ styles.row }>
-                <Text style={ styles.rowText }>
-                  { rowData }
+            renderForeground={() => (
+              <View key="parallax-header" style={ styles.parallaxHeader }>
+                <Image style={ styles.avatar } source={{
+                  uri: 'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',
+                  width: AVATAR_SIZE,
+                  height: AVATAR_SIZE
+                }}/>
+                <Text style={ styles.sectionSpeakerText }>
+                  Talks by Rich Hickey
+                </Text>
+                <Text style={ styles.sectionTitleText }>
+                  CTO of Cognitec, Creator of Clojure
                 </Text>
               </View>
-             )}/>
-    </ParallaxScrollView>
+            )}
+
+            renderStickyHeader={() => (
+              <View key="sticky-header" style={styles.stickySection}>
+                <Text style={styles.stickySectionText}>Rich Hickey Talks</Text>
+              </View>
+            )}
+
+            renderFixedHeader={() => (
+              <View key="fixed-header" style={styles.fixedSection}>
+                <Text style={styles.fixedSectionText}
+                      onPress={() => this.refs.ListView.scrollTo({ x: 0, y: 0 })}>
+                  Scroll to top
+                </Text>
+              </View>
+            )}/>
+        )}
+      />
     );
   }
 }
