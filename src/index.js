@@ -1,13 +1,12 @@
-const React = require('react-native');
-const {
+import React, { Component } from 'react';
+import {
   Animated,
-  Component,
   Dimensions,
   ScrollView,
   View
-} = React;
+} from 'react-native';
 
-const styles = require('./styles');
+import styles from './styles';
 
 const { bool, func, number, string } = React.PropTypes;
 
