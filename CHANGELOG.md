@@ -1,5 +1,10 @@
 ## Changelog
 
+### 0.19.0
+
+- Fixes compatibility with React Native 0.27.2
+- Adds `contentContainerStyle` prop to style scroll container (thanks @alaycock)
+
 ### 0.18.1
 
 - Fixes error when inspecting the sticky header due to cyclical object structure

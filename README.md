@@ -80,9 +80,14 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | `renderScrollComponent` | `func` | No | A function with input `props` and outputs a `ScrollView`-like component in which the content is rendered. This is useful if you want to provide your own scrollable component. (See: [https://github.com/exponentjs/react-native-scrollable-mixin](https://github.com/exponentjs/react-native-scrollable-mixin)) (By default, returns a `ScrollView` with the given props) |
 | `renderStickyHeader` | `func` | No | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | If `renderStickyHeader` is set, then its height must be specified. |
-
+| `contentContainerStyle` | `object` | No | These styles will be applied to the scroll view content container which wraps all of the child views. (same as for [ScrollView](https://facebook.github.io/react-native/docs/scrollview.html#contentcontainerstyle)) |
 
 ## Latest changes
+
+### 0.19.0
+
+- Fixes compatibility with React Native 0.27.2
+- Adds `contentContainerStyle` prop to style scroll container (thanks @alaycock)
 
 ### 0.18.1
 
@@ -94,11 +99,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 - **Breaking:** Removes `ParallaxScrollView#scrollWithoutAnimationTo` since this has been deprecated in React Native. If you used this method previously, use `scrollTo` instead.
 - Adds `ParallaxScrollView#getScrollableNode` method, which is required in React Native 0.20.0 for components implementing
   `ScrollView` interface.
-
-### 0.17.4
-
-- The background now fades out in the same manner as the foreground. Thanks @generalChaos for the PR.
-
+  
 See full changelog [here](./CHANGELOG.md).
 
 ## Contributing

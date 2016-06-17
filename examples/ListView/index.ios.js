@@ -1,7 +1,8 @@
-import React, { AppRegistry, StatusBarIOS, processColor } from 'react-native';
+import React from 'react'
+import { AppRegistry, StatusBarIOS, processColor } from 'react-native';
 
 import Talks from './Talks';
 
 StatusBarIOS.setStyle('light-content');
 
-AppRegistry.registerComponent('ListView', () => Talks);
+AppRegistry.registerComponent('ListViewExample', () => Talks);

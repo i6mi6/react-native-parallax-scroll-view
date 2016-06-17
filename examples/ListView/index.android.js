@@ -1,11 +1,11 @@
 /*
  * This Android demo shows how to integrate `PullToRefreshViewAndroid` with `ScrollableParallaxView`.
  */
-import React, {
+import React, { Component } from 'react'
+import {
   AppRegistry,
-  Component,
   PullToRefreshViewAndroid,
-  View,
+  View
 } from 'react-native';
 
 import Talks from './Talks';
@@ -40,4 +40,4 @@ class AndroidExample extends Component {
   }
 }
 
-AppRegistry.registerComponent('ListView', () => AndroidExample);
+AppRegistry.registerComponent('ListViewExample', () => AndroidExample);

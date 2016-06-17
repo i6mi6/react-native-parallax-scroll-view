@@ -6,7 +6,8 @@
     "start": "react-native start"
   },
   "dependencies": {
-    "react-native": "0.21.0",
+    "react": "15.1.0",
+    "react-native": "0.27.2",
     "react-native-parallax-scroll-view": "../../"
   }
 }
