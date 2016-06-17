@@ -3,7 +3,7 @@
 ### 0.19.0
 
 - Fixes compatibility with React Native 0.27.2
-- Adds `contentContainerStyle` prop to style scroll container (thanks @alaycock)
+- Adds `contentContainerStyle` prop to style scroll container (thanks [@alaycock](https://github.com/alaycock)
 
 ### 0.18.1
 
