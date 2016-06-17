@@ -41,7 +41,8 @@ const IPropTypes = {
   renderForeground: func,
   renderScrollComponent: func,
   renderStickyHeader: func,
-  stickyHeaderHeight: number
+  stickyHeaderHeight: number,
+  contentContainerStyle: View.propTypes.style
 };
 
 class ParallaxScrollView extends Component {
@@ -79,12 +80,13 @@ class ParallaxScrollView extends Component {
       renderStickyHeader,
       stickyHeaderHeight,
       style,
+      contentContainerStyle,
       ...scrollViewProps
     } = this.props;
 
     const background = this._renderBackground({ fadeOutBackground, backgroundScrollSpeed, backgroundColor, parallaxHeaderHeight, stickyHeaderHeight, renderBackground });
     const foreground = this._renderForeground({ fadeOutForeground, parallaxHeaderHeight, stickyHeaderHeight, renderForeground: renderForeground || renderParallaxHeader });
-    const bodyComponent = this._wrapChildren(children, { contentBackgroundColor, stickyHeaderHeight });
+    const bodyComponent = this._wrapChildren(children, { contentBackgroundColor, stickyHeaderHeight, contentContainerStyle });
     const footerSpacer = this._renderFooterSpacer({ contentBackgroundColor });
     const maybeStickyHeader = this._maybeRenderStickyHeader({ parallaxHeaderHeight, stickyHeaderHeight, backgroundColor, renderFixedHeader, renderStickyHeader });
     const scrollElement = renderScrollComponent(scrollViewProps);
@@ -240,11 +242,16 @@ class ParallaxScrollView extends Component {
     );
   }
 
-  _wrapChildren(children, { contentBackgroundColor, stickyHeaderHeight }) {
+  _wrapChildren(children, { contentBackgroundColor, stickyHeaderHeight, contentContainerStyle }) {
     const { viewHeight } = this.state;
+    const containerStyles = [{backgroundColor: contentBackgroundColor}];
+
+    if(contentContainerStyle)
+      containerStyles.push(contentContainerStyle);
+
     return (
       <View
-        style={{ backgroundColor: contentBackgroundColor }}
+        style={containerStyles}
         onLayout={e => {
                 // Adjust the bottom height so we can scroll the parallax header all the way up.
                 const { nativeEvent: { layout: { height } } } = e;
@@ -321,7 +328,8 @@ ParallaxScrollView.defaultProps = {
   renderBackground: renderEmpty,
   renderParallaxHeader: renderEmpty, // Deprecated (will be removed in 0.18.0)
   renderForeground: null,
-  stickyHeaderHeight: 0
+  stickyHeaderHeight: 0,
+  contentContainerStyle: null
 };
 
 module.exports = ParallaxScrollView;
