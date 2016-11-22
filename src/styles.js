@@ -1,4 +1,4 @@
-const StyleSheet = require('react-native').StyleSheet;
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
