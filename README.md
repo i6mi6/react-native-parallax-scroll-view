@@ -70,6 +70,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | -------- | ---- | -------- | ----------- |
 | `backgroundColor` | `string` | No | The color of the header background. Defaults to `#000`) |
 | `backgroundSpeed` | `number` | No | The speed factor that the background moves at relative to the foreground. Defaults to 5. |
+| `backgroundScaleSpeed` | `number` | No | The speed factor that the background scale at relative to the foreground. Defaults to 5. |
 | `contentBackgroundColor` | `string` | No | This is the background color of the content. (Defaults to `'#fff'`) |
 | `fadeOutForeground` | `bool` | No | If `true`, the foreground will fade out as the user scrolls up. (Defaults to `true`) |
 | `onChangeHeaderVisibility` | `func` | No | A callback function that is invoked when the parallax header is hidden or shown (as the user is scrolling). Function is called with a `boolean` value to indicate whether header is visible or not. |
