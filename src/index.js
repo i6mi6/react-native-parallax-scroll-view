@@ -206,7 +206,7 @@ class ParallaxScrollView extends Component {
             }, {
               scale: interpolate(scrollY, {
                 inputRange: [-viewHeight, 0],
-                outputRange: [5, 1],
+                outputRange: [7, 1],
                 extrapolate: 'clamp'
               })
             }]
