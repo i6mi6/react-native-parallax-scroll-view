@@ -1,5 +1,8 @@
 ## Changelog
 
+### 0.20.1
+- Added prop to change interpolated Scale Output Value
+
 ### 0.20.0 // Rodrigocs
 - Now uses native driver, and tested with React Native 0.46.0
 - Adds `useNativeDriver` to improve performance, but renderScrollComponent must be a Animated component ( ie: Animated.createAnimatedComponent(component))

@@ -114,24 +114,17 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | `renderStickyHeader` | `func` | No | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | If `renderStickyHeader` is set, then its height must be specified. |
 | `contentContainerStyle` | `object` | No | These styles will be applied to the scroll view content container which wraps all of the child views. (same as for [ScrollView](https://facebook.github.io/react-native/docs/scrollview.html#contentcontainerstyle)) |
+| `outputScaleValue` | `number` | No | The value for the scale interpolation output value, default `5` |
+
 
 ## Latest changes
 
-### 0.19.0
+### 0.20.1
+- Added prop to change interpolated Scale Output Value
 
-- Fixes compatibility with React Native 0.27.2
-- Adds `contentContainerStyle` prop to style scroll container (thanks [@alaycock](https://github.com/alaycock))
-
-### 0.18.1
-
-- Fixes error when inspecting the sticky header due to cyclical object structure
-  on `style` (#23)
-
-### 0.18.0 (Compatibility with React Native 0.20.0)
-
-- **Breaking:** Removes `ParallaxScrollView#scrollWithoutAnimationTo` since this has been deprecated in React Native. If you used this method previously, use `scrollTo` instead.
-- Adds `ParallaxScrollView#getScrollableNode` method, which is required in React Native 0.20.0 for components implementing
-  `ScrollView` interface.
+### 0.20.0 // Rodrigocs
+- Now uses native driver, and tested with React Native 0.46.0
+- Adds `useNativeDriver` to improve performance, but renderScrollComponent must be a Animated component ( ie: Animated.createAnimatedComponent(component))
 
 See full changelog [here](./CHANGELOG.md).
 

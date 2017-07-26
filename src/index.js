@@ -37,7 +37,8 @@ const IPropTypes = {
 	renderScrollComponent: func,
 	renderStickyHeader: func,
 	stickyHeaderHeight: number,
-	contentContainerStyle: View.propTypes.style
+	contentContainerStyle: View.propTypes.style,
+	outputScaleValue: number
 }
 
 class ParallaxScrollView extends Component {
@@ -86,6 +87,7 @@ class ParallaxScrollView extends Component {
 			stickyHeaderHeight,
 			style,
 			contentContainerStyle,
+			outputScaleValue,
 			...scrollViewProps
 		} = this.props
 
@@ -95,7 +97,8 @@ class ParallaxScrollView extends Component {
 			backgroundColor,
 			parallaxHeaderHeight,
 			stickyHeaderHeight,
-			renderBackground
+			renderBackground,
+			outputScaleValue
 		})
 		const foreground = this._renderForeground({
 			fadeOutForeground,
@@ -220,7 +223,8 @@ class ParallaxScrollView extends Component {
 		backgroundColor,
 		parallaxHeaderHeight,
 		stickyHeaderHeight,
-		renderBackground
+		renderBackground,
+		outputScaleValue
 	}) {
 		const { viewWidth, viewHeight } = this.state
 		const { scrollY } = this
@@ -252,7 +256,7 @@ class ParallaxScrollView extends Component {
 							{
 								scale: interpolate(scrollY, {
 									inputRange: [-viewHeight, 0],
-									outputRange: [5, 1],
+									outputRange: [outputScaleValue, 1],
 									extrapolate: 'clamp'
 								})
 							}
@@ -413,7 +417,8 @@ ParallaxScrollView.defaultProps = {
 	renderParallaxHeader: renderEmpty, // Deprecated (will be removed in 0.18.0)
 	renderForeground: null,
 	stickyHeaderHeight: 0,
-	contentContainerStyle: null
+	contentContainerStyle: null,
+	outputScaleValue: 5
 }
 
 module.exports = ParallaxScrollView
