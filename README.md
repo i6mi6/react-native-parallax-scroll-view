@@ -1,5 +1,38 @@
 [![](https://img.shields.io/npm/dm/react-native-parallax-scroll-view.svg?style=flat-square)](https://www.npmjs.com/package/react-native-parallax-scroll-view)
 
+# Rodrigocs - Animated Driver
+
+This component now uses Native Driver by default.
+Remember to pass a Animated component to `renderScrollComponent`, by default it has `Animated.ScrollView`
+
+# Example
+```js
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import CustomScrollView from 'custom-scroll-view'
+
+const AnimatedCustomScrollView = Animated.createAnimatedComponent(CustomScrollView)
+
+render() {
+  return (
+    <ParallaxScrollView
+      backgroundColor="blue"
+      contentBackgroundColor="pink"
+      parallaxHeaderHeight={300}
+      // renderScrollComponent={() => <Animated.View />}
+      renderScrollComponent={() => <AnimatedCustomScrollView />}
+      renderForeground={() => (
+       <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Hello World!</Text>
+        </View>
+      )}>
+      <View style={{ height: 500 }}>
+        <Text>Scroll me</Text>
+      </View>
+    </ParallaxScrollView>
+  );
+}
+```
+
 # react-native-parallax-scroll-view
 
 A `ScrollView`-like component that:
@@ -99,7 +132,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 - **Breaking:** Removes `ParallaxScrollView#scrollWithoutAnimationTo` since this has been deprecated in React Native. If you used this method previously, use `scrollTo` instead.
 - Adds `ParallaxScrollView#getScrollableNode` method, which is required in React Native 0.20.0 for components implementing
   `ScrollView` interface.
-  
+
 See full changelog [here](./CHANGELOG.md).
 
 ## Contributing

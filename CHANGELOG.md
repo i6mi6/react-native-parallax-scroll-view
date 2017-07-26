@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.20.0 // Rodrigocs
+- Now uses native driver, and tested with React Native 0.46.0
+- Adds `useNativeDriver` to improve performance, but renderScrollComponent must be a Animated component ( ie: Animated.createAnimatedComponent(component))
+
 ### 0.19.0
 
 - Fixes compatibility with React Native 0.27.2
@@ -9,7 +13,7 @@
 
 - Fixes error when inspecting the sticky header due to cyclical object structure
   on `style` (#23)
-  
+
 ### 0.18.0 (Compatibility with React Native 0.20.0)
 
 - **Breaking:** Removes `ParallaxScrollView#scrollWithoutAnimationTo` since this has been deprecated in React Native. If you used this method previously, use `scrollTo` instead.
