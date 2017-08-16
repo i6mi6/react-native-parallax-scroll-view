@@ -81,7 +81,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | `renderScrollComponent` | `func` | No | A function with input `props` and outputs a `ScrollView`-like component in which the content is rendered. This is useful if you want to provide your own scrollable component. (See: [https://github.com/exponentjs/react-native-scrollable-mixin](https://github.com/exponentjs/react-native-scrollable-mixin)) (By default, returns a `ScrollView` with the given props) |
 | `renderStickyHeader` | `func` | No | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | If `renderStickyHeader` is set, then its height must be specified. |
-| `stickyHeaderSlideDirection` | `string` | If `stickyHeaderSlideDirection` is used | Slide direction of sticky header. |
+| `stickyHeaderSlideDirection` | `string` | If `renderStickyHeader` is used | Slide direction of sticky header. It should be either 'top' or 'bottom' |
 | `contentContainerStyle` | `object` | No | These styles will be applied to the scroll view content container which wraps all of the child views. (same as for [ScrollView](https://facebook.github.io/react-native/docs/scrollview.html#contentcontainerstyle)) |
 
 ## Latest changes
