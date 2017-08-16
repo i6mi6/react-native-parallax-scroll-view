@@ -279,8 +279,13 @@ class ParallaxScrollView extends Component {
     if (renderStickyHeader || renderFixedHeader) {
       const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight);
       const outputValue = (stickyHeaderSlideDirection === 'top') ? -1 * stickyHeaderHeight : stickyHeaderHeight;
+      let height = interpolate(scrollY, {
+        inputRange: [0, stickyHeaderHeight],
+        outputRange: [0, stickyHeaderHeight],
+        extrapolate: 'clamp'
+      });
       return (
-        <View style={[styles.stickyHeader, { width: viewWidth, ...(stickyHeaderHeight ? { height: stickyHeaderHeight } : null ) }]}>
+        <View style={[styles.stickyHeader, { width: viewWidth }]}>
           {
             renderStickyHeader
               ? (
