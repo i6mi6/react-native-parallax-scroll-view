@@ -26,5 +26,8 @@
 		"android"
 	],
 	"author": "Jack Hsu",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"prop-types": "^15.5.10"
+	}
 }
