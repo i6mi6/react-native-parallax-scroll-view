@@ -1,5 +1,38 @@
 [![](https://img.shields.io/npm/dm/react-native-parallax-scroll-view.svg?style=flat-square)](https://www.npmjs.com/package/react-native-parallax-scroll-view)
 
+# Rodrigocs - Animated Driver
+
+This component now uses Native Driver by default.
+Remember to pass a Animated component to `renderScrollComponent`, by default it has `Animated.ScrollView`
+
+# Example
+```js
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import CustomScrollView from 'custom-scroll-view'
+
+const AnimatedCustomScrollView = Animated.createAnimatedComponent(CustomScrollView)
+
+render() {
+  return (
+    <ParallaxScrollView
+      backgroundColor="blue"
+      contentBackgroundColor="pink"
+      parallaxHeaderHeight={300}
+      // renderScrollComponent={() => <Animated.View />}
+      renderScrollComponent={() => <AnimatedCustomScrollView />}
+      renderForeground={() => (
+       <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Hello World!</Text>
+        </View>
+      )}>
+      <View style={{ height: 500 }}>
+        <Text>Scroll me</Text>
+      </View>
+    </ParallaxScrollView>
+  );
+}
+```
+
 # react-native-parallax-scroll-view
 
 A `ScrollView`-like component that:
@@ -77,29 +110,22 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | `renderBackground` | `func` | No | This renders the background of the parallax header. Can be used to display cover images for example. (Defaults to an opaque background using `backgroundColor`) |
 | `renderFixedHeader` | `func` | No | This renders an optional fixed header that will always be visible and fixed to the top of the view (and sticky header). You should set its height and width appropriately. |
 | `renderForeground` |  `func` | No |This renders the foreground header that moves at same speed as scroll content. |
-| `renderScrollComponent` | `func` | No | A function with input `props` and outputs a `ScrollView`-like component in which the content is rendered. This is useful if you want to provide your own scrollable component. (See: [https://github.com/exponentjs/react-native-scrollable-mixin](https://github.com/exponentjs/react-native-scrollable-mixin)) (By default, returns a `ScrollView` with the given props) |
+| `renderScrollComponent` | `func` | No | A function with input `props` and outputs an `Animated.ScrollView`-like component in which the content is rendered. This is useful if you want to provide your own scrollable component, remember however to make it an Animated component. (See: [https://github.com/exponentjs/react-native-scrollable-mixin](https://github.com/exponentjs/react-native-scrollable-mixin)) (By default, returns a `Animated.ScrollView` with the given props) |
 | `renderStickyHeader` | `func` | No | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | If `renderStickyHeader` is set, then its height must be specified. |
 | `contentContainerStyle` | `object` | No | These styles will be applied to the scroll view content container which wraps all of the child views. (same as for [ScrollView](https://facebook.github.io/react-native/docs/scrollview.html#contentcontainerstyle)) |
+| `outputScaleValue` | `number` | No | The value for the scale interpolation output value, default `5` |
+
 
 ## Latest changes
 
-### 0.19.0
+### 0.20.1
+- Added prop to change interpolated Scale Output Value
 
-- Fixes compatibility with React Native 0.27.2
-- Adds `contentContainerStyle` prop to style scroll container (thanks [@alaycock](https://github.com/alaycock))
+### 0.20.0 // Rodrigocs
+- Now uses native driver, and tested with React Native 0.46.0
+- Adds `useNativeDriver` to improve performance, but renderScrollComponent must be a Animated component ( ie: Animated.createAnimatedComponent(component))
 
-### 0.18.1
-
-- Fixes error when inspecting the sticky header due to cyclical object structure
-  on `style` (#23)
-
-### 0.18.0 (Compatibility with React Native 0.20.0)
-
-- **Breaking:** Removes `ParallaxScrollView#scrollWithoutAnimationTo` since this has been deprecated in React Native. If you used this method previously, use `scrollTo` instead.
-- Adds `ParallaxScrollView#getScrollableNode` method, which is required in React Native 0.20.0 for components implementing
-  `ScrollView` interface.
-  
 See full changelog [here](./CHANGELOG.md).
 
 ## Contributing
