@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
-import { Animated, Dimensions, ScrollView, View } from 'react-native'
+import {
+  Animated,
+  Dimensions,
+  ScrollView,
+  View,
+  ViewPropTypes,
+} from 'react-native'
+import PropTypes from 'prop-types'
 
 const styles = require('./styles')
 
-const { bool, func, number, string } = React.PropTypes
+const { bool, func, number, string } = PropTypes
 
 const window = Dimensions.get('window')
 
@@ -37,8 +44,9 @@ const IPropTypes = {
 	renderScrollComponent: func,
 	renderStickyHeader: func,
 	stickyHeaderHeight: number,
-	contentContainerStyle: View.propTypes.style,
-	outputScaleValue: number
+  contentContainerStyle: ViewPropTypes.style,
+  scrollingStickyHeader: bool,
+	outputScaleValue: number,
 }
 
 class ParallaxScrollView extends Component {
@@ -57,10 +65,10 @@ class ParallaxScrollView extends Component {
 		this.state = {
 			scrollY: new Animated.Value(0),
 			viewHeight: window.height,
-			viewWidth: window.width
+			viewWidth: window.width,
 		}
 		this.scrollY = new Animated.Value(0)
-		this._footerComponent = { setNativeProps() {} } // Initial stub
+		this._footerComponent = { setNativeProps() {} }   // Initial stub
 		this._footerHeight = 0
 	}
 
@@ -86,7 +94,8 @@ class ParallaxScrollView extends Component {
 			renderStickyHeader,
 			stickyHeaderHeight,
 			style,
-			contentContainerStyle,
+      contentContainerStyle,
+      scrollingStickyHeader,
 			outputScaleValue,
 			...scrollViewProps
 		} = this.props
@@ -98,18 +107,18 @@ class ParallaxScrollView extends Component {
 			parallaxHeaderHeight,
 			stickyHeaderHeight,
 			renderBackground,
-			outputScaleValue
+			outputScaleValue,
 		})
 		const foreground = this._renderForeground({
 			fadeOutForeground,
 			parallaxHeaderHeight,
 			stickyHeaderHeight,
-			renderForeground: renderForeground || renderParallaxHeader
+			renderForeground: renderForeground || renderParallaxHeader,
 		})
 		const bodyComponent = this._wrapChildren(children, {
 			contentBackgroundColor,
 			stickyHeaderHeight,
-			contentContainerStyle
+			contentContainerStyle,
 		})
 		const footerSpacer = this._renderFooterSpacer({ contentBackgroundColor })
 		const maybeStickyHeader = this._maybeRenderStickyHeader({
@@ -117,7 +126,8 @@ class ParallaxScrollView extends Component {
 			stickyHeaderHeight,
 			backgroundColor,
 			renderFixedHeader,
-			renderStickyHeader
+      renderStickyHeader,
+      scrollingStickyHeader,
 		})
 		const scrollElement = renderScrollComponent(scrollViewProps)
 		return (
@@ -136,7 +146,7 @@ class ParallaxScrollView extends Component {
 						onScroll: Animated.event(
 							[{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
 							{ useNativeDriver: true, listener: this._onScroll.bind(this) }
-						)
+						),
 						// onScroll: this._onScroll.bind(this)
 					},
 					foreground,
@@ -176,12 +186,12 @@ class ParallaxScrollView extends Component {
 			parallaxHeaderHeight,
 			stickyHeaderHeight,
 			onChangeHeaderVisibility,
-			onScroll: prevOnScroll = e => {}
+			onScroll: prevOnScroll = e => {},
 		} = this.props
 
 		const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight)
 
-		// This optimization wont run, since we update the animation value directly in onScroll event
+		// This optimization won't run, since we update the animation value directly in onScroll event
 		// this._maybeUpdateScrollPosition(e)
 
 		if (e.nativeEvent.contentOffset.y >= p) {
@@ -193,17 +203,17 @@ class ParallaxScrollView extends Component {
 		prevOnScroll(e)
 	}
 
-	// This optimizes the state update of current scrollY since we don't need to
-	// perform any updates when user has scrolled past the pivot point.
-	_maybeUpdateScrollPosition(e) {
-		const { parallaxHeaderHeight, stickyHeaderHeight } = this.props
-		const { scrollY } = this
-		const { nativeEvent: { contentOffset: { y: offsetY } } } = e
-		const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight)
-		if (offsetY <= p || scrollY._value <= p) {
-			scrollY.setValue(offsetY)
-		}
-	}
+	// // This optimizes the state update of current scrollY since we don't need to
+	// // perform any updates when user has scrolled past the pivot point.
+	// _maybeUpdateScrollPosition(e) {
+	// 	const { parallaxHeaderHeight, stickyHeaderHeight } = this.props
+	// 	const { scrollY } = this
+	// 	const { nativeEvent: { contentOffset: { y: offsetY } } } = e
+	// 	const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight)
+	// 	if (offsetY <= p || scrollY._value <= p) {
+	// 		scrollY.setValue(offsetY)
+	// 	}
+	// }
 
 	_maybeUpdateViewDimensions(e) {
 		const { nativeEvent: { layout: { width, height } } } = e
@@ -211,7 +221,7 @@ class ParallaxScrollView extends Component {
 		if (width !== this.state.viewWidth || height !== this.state.viewHeight) {
 			this.setState({
 				viewWidth: width,
-				viewHeight: height
+				viewHeight: height,
 			})
 		}
 	}
@@ -223,7 +233,7 @@ class ParallaxScrollView extends Component {
 		parallaxHeaderHeight,
 		stickyHeaderHeight,
 		renderBackground,
-		outputScaleValue
+		outputScaleValue,
 	}) {
 		const { viewWidth, viewHeight } = this.state
 		const { scrollY } = this
@@ -240,7 +250,7 @@ class ParallaxScrollView extends Component {
 							? interpolate(scrollY, {
 									inputRange: [0, p * (1 / 2), p * (3 / 4), p],
 									outputRange: [1, 0.3, 0.1, 0],
-									extrapolate: 'clamp'
+									extrapolate: 'clamp',
 								})
 							: 1,
 						transform: [
@@ -249,18 +259,18 @@ class ParallaxScrollView extends Component {
 									inputRange: [0, p],
 									outputRange: [0, -(p / backgroundScrollSpeed)],
 									extrapolateRight: 'extend',
-									extrapolateLeft: 'clamp'
-								})
+									extrapolateLeft: 'clamp',
+								}),
 							},
 							{
 								scale: interpolate(scrollY, {
 									inputRange: [-viewHeight, 0],
 									outputRange: [outputScaleValue, 1],
-									extrapolate: 'clamp'
-								})
-							}
-						]
-					}
+									extrapolate: 'clamp',
+								}),
+							},
+						],
+					},
 				]}
 			>
 				<View>
@@ -274,7 +284,7 @@ class ParallaxScrollView extends Component {
 		fadeOutForeground,
 		parallaxHeaderHeight,
 		stickyHeaderHeight,
-		renderForeground
+		renderForeground,
 	}) {
 		const { scrollY } = this
 		const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight)
@@ -289,10 +299,10 @@ class ParallaxScrollView extends Component {
 								? interpolate(scrollY, {
 										inputRange: [0, p * (1 / 2), p * (3 / 4), p],
 										outputRange: [1, 0.3, 0.1, 0],
-										extrapolate: 'clamp'
+										extrapolate: 'clamp',
 									})
-								: 1
-						}
+								: 1,
+						},
 					]}
 				>
 					<View style={{ height: parallaxHeaderHeight }}>
@@ -310,7 +320,8 @@ class ParallaxScrollView extends Component {
 		const { viewHeight } = this.state
 		const containerStyles = [{ backgroundColor: contentBackgroundColor }]
 
-		if (contentContainerStyle) containerStyles.push(contentContainerStyle)
+		if (contentContainerStyle)
+			containerStyles.push(contentContainerStyle)
 
 		return (
 			<View
@@ -324,7 +335,7 @@ class ParallaxScrollView extends Component {
 					)
 					if (this._footerHeight !== footerHeight) {
 						this._footerComponent.setNativeProps({
-							style: { height: footerHeight }
+							style: { height: footerHeight },
 						})
 						this._footerHeight = footerHeight
 					}
@@ -349,7 +360,8 @@ class ParallaxScrollView extends Component {
 		stickyHeaderHeight,
 		backgroundColor,
 		renderFixedHeader,
-		renderStickyHeader
+    renderStickyHeader,
+    scrollingStickyHeader,
 	}) {
 		const { viewWidth } = this.state
 		const { scrollY } = this
@@ -361,39 +373,48 @@ class ParallaxScrollView extends Component {
 						styles.stickyHeader,
 						{
 							width: viewWidth,
-							...(stickyHeaderHeight ? { height: stickyHeaderHeight } : null)
-						}
+							...(stickyHeaderHeight ? { height: stickyHeaderHeight } : null),
+						},
 					]}
 				>
 					{renderStickyHeader
-						? <Animated.View
-								style={{
-									backgroundColor: backgroundColor,
-									height: stickyHeaderHeight,
-									opacity: interpolate(scrollY, {
-										inputRange: [0, p],
-										outputRange: [0, 1],
-										extrapolate: 'clamp'
-									})
-								}}
-							>
-								<Animated.View
-									style={{
-										transform: [
-											{
-												translateY: interpolate(scrollY, {
-													inputRange: [0, p],
-													outputRange: [stickyHeaderHeight, 0],
-													extrapolate: 'clamp'
-												})
-											}
-										]
-									}}
-								>
-									{renderStickyHeader()}
-								</Animated.View>
-							</Animated.View>
-						: null}
+          ? <Animated.View
+              style={{
+								backgroundColor: backgroundColor,
+								height: stickyHeaderHeight,
+                // height: interpolate(scrollY, {        // redbox error: Style property 'height' is not supported by native animated module
+                //   inputRange: [0, stickyHeaderHeight],
+                //   outputRange: [0, stickyHeaderHeight],
+                //   extrapolate: 'clamp',
+                // }),
+                opacity: interpolate(scrollY, {
+                  inputRange: [0, p],
+                  outputRange: [0, 1],
+                  extrapolate: 'clamp',
+                }),
+              }}
+            >
+              {scrollingStickyHeader
+              ? <Animated.View
+                  style={{
+                    transform: [
+                      {
+                        translateY: interpolate(scrollY, {
+                          inputRange: [0, p],
+                          outputRange: [stickyHeaderHeight, 0],
+                          extrapolate: 'clamp',
+                        }),
+                      },
+                    ],
+                  }}
+                >
+                  {renderStickyHeader()}
+                </Animated.View>
+              : renderStickyHeader()
+              }
+            </Animated.View>
+          : null
+          }
 					{renderFixedHeader && renderFixedHeader()}
 				</View>
 			)
@@ -416,8 +437,9 @@ ParallaxScrollView.defaultProps = {
 	renderParallaxHeader: renderEmpty, // Deprecated (will be removed in 0.18.0)
 	renderForeground: null,
 	stickyHeaderHeight: 0,
-	contentContainerStyle: null,
-	outputScaleValue: 5
+  contentContainerStyle: null,
+  scrollingStickyheader: true,
+	outputScaleValue: 5,
 }
 
 module.exports = ParallaxScrollView

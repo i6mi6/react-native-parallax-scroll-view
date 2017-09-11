@@ -114,6 +114,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | `renderStickyHeader` | `func` | No | This renders an optional sticky header that will stick to the top of view when parallax header scrolls up. |
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | If `renderStickyHeader` is set, then its height must be specified. |
 | `contentContainerStyle` | `object` | No | These styles will be applied to the scroll view content container which wraps all of the child views. (same as for [ScrollView](https://facebook.github.io/react-native/docs/scrollview.html#contentcontainerstyle)) |
+| `scrollingStickyHeader` | `bool` | No | This causes the sticky header to scroll into view. If set to false the sticky header will only fade in. |
 | `outputScaleValue` | `number` | No | The value for the scale interpolation output value, default `5` |
 
 
