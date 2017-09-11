@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {
   Animated,
   Dimensions,
-  Platform,
   ScrollView,
   View,
   ViewPropTypes,
