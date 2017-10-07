@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Animated, Dimensions, ScrollView, View } from 'react-native'
+import { Animated, Dimensions, ScrollView, View, ViewPropTypes } from 'react-native'
 
 const styles = require('./styles')
 
@@ -37,7 +37,7 @@ const IPropTypes = {
 	renderScrollComponent: func,
 	renderStickyHeader: func,
 	stickyHeaderHeight: number,
-	contentContainerStyle: View.propTypes.style,
+	contentContainerStyle: ViewPropTypes.style,
 	outputScaleValue: number
 }
 
