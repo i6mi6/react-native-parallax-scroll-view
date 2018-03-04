@@ -115,6 +115,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | `stickyHeaderHeight` | `number` | If `renderStickyHeader` is used | If `renderStickyHeader` is set, then its height must be specified. |
 | `contentContainerStyle` | `object` | No | These styles will be applied to the scroll view content container which wraps all of the child views. (same as for [ScrollView](https://facebook.github.io/react-native/docs/scrollview.html#contentcontainerstyle)) |
 | `outputScaleValue` | `number` | No | The value for the scale interpolation output value, default `5` |
+| `scrollEvent` | `func` | No | Callback to recieve the animated scroll event values |
 
 
 ## Latest changes
