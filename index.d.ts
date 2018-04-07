@@ -18,6 +18,8 @@ export interface ParallaxScrollViewProps {
     stickyHeaderHeight?: number;
     contentContainerStyle?: any;
     outputScaleValue?: number;
+    style?: any;
+    parallaxHeaderHeight?: number;
 }
 
 export class RenderBackgroundParams {
