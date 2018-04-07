@@ -1,4 +1,10 @@
-export default interface ParallaxScrollView {
+import * as React from 'react';
+
+declare class ParallaxScrollView extends React.Component<ParallaxScrollViewProps, {}> {
+
+}
+
+export interface ParallaxScrollViewProps {
     backgroundScrollSpeed?: number;
     backgroundColor?: string;
     contentBackgroundColor?: string;
