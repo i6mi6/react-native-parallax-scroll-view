@@ -27,3 +27,5 @@ export class RenderBackgroundParams {
     renderBackground: () => void;
     outputScaleValue: number;
 }
+
+export default ParallaxScrollView;
