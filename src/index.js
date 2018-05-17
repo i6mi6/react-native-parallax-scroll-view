@@ -338,7 +338,11 @@ class ParallaxScrollView extends Component {
 	_renderFooterSpacer({ contentBackgroundColor }) {
 		return (
 			<View
-				ref={ref => (this._footerComponent = ref)}
+				ref={ref => {
+					if (ref) {
+						this._footerComponent = ref;
+					}
+				}}
 				style={{ backgroundColor: contentBackgroundColor }}
 			/>
 		)
