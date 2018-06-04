@@ -320,7 +320,6 @@ class ParallaxScrollView extends Component {
 		this.containerHeight = this.state.viewHeight;
 
 		children.forEach((item) => {
-			console.log(item);
 			if (item && Object.keys(item).length != 0) {
 				this.containerHeight = 0;
 			}
