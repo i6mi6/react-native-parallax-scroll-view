@@ -1,6 +1,6 @@
 {
 	"name": "react-native-parallax-scroll-view",
-	"version": "0.21.0",
+	"version": "0.21.1",
 	"description": "A ScrollView-like component with parallax and sticky header support",
 	"main": "src/index.js",
 	"repository": {
