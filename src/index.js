@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Animated, Dimensions, ScrollView, View, ViewPropTypes, Image } from 'react-native'
+import { Animated, Dimensions, View, ViewPropTypes } from 'react-native'
 
 const styles = require('./styles')
 
@@ -13,7 +13,7 @@ const pivotPoint = (a, b) => a - b
 
 const renderEmpty = () => <View />
 
-const noRender = () => <View style={{display: 'none'}} />
+const noRender = () => <View style={{ display: 'none' }} />
 
 // Override `toJSON` of interpolated value because of
 // an error when serializing style on view inside inspector.
@@ -63,7 +63,7 @@ class ParallaxScrollView extends Component {
 			viewWidth: window.width
 		}
 		this.scrollY = new Animated.Value(0)
-		this._footerComponent = { setNativeProps() {} } // Initial stub
+		this._footerComponent = { setNativeProps() { } } // Initial stub
 		this._footerHeight = 0
 	}
 
@@ -181,7 +181,7 @@ class ParallaxScrollView extends Component {
 			parallaxHeaderHeight,
 			stickyHeaderHeight,
 			onChangeHeaderVisibility,
-			onScroll: prevOnScroll = e => {}
+			onScroll: prevOnScroll = () => { }
 		} = this.props
 		this.props.scrollEvent && this.props.scrollEvent(e)
 		const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight)
@@ -243,10 +243,10 @@ class ParallaxScrollView extends Component {
 						width: viewWidth,
 						opacity: fadeOutBackground
 							? interpolate(scrollY, {
-									inputRange: [0, p * (1 / 2), p * (3 / 4), p],
-									outputRange: [1, 0.3, 0.1, 0],
-									extrapolate: 'clamp'
-								})
+								inputRange: [0, p * (1 / 2), p * (3 / 4), p],
+								outputRange: [1, 0.3, 0.1, 0],
+								extrapolate: 'clamp'
+							})
 							: 1,
 						transform: [
 							{
@@ -292,10 +292,10 @@ class ParallaxScrollView extends Component {
 							height: parallaxHeaderHeight,
 							opacity: fadeOutForeground
 								? interpolate(scrollY, {
-										inputRange: [0, p * (1 / 2), p * (3 / 4), p],
-										outputRange: [1, 0.3, 0.1, 0],
-										extrapolate: 'clamp'
-									})
+									inputRange: [0, p * (1 / 2), p * (3 / 4), p],
+									outputRange: [1, 0.3, 0.1, 0],
+									extrapolate: 'clamp'
+								})
 								: 1
 						}
 					]}
@@ -319,7 +319,7 @@ class ParallaxScrollView extends Component {
 
 		this.containerHeight = this.state.viewHeight;
 
-		children.forEach((item) => {
+		React.Children.forEach(children, (item) => {
 			if (item && Object.keys(item).length != 0) {
 				this.containerHeight = 0;
 			}
@@ -385,32 +385,32 @@ class ParallaxScrollView extends Component {
 				>
 					{renderStickyHeader
 						? <Animated.View
+							style={{
+								backgroundColor: backgroundColor,
+								height: stickyHeaderHeight,
+								opacity: interpolate(scrollY, {
+									inputRange: [0, p],
+									outputRange: [0, 1],
+									extrapolate: 'clamp'
+								})
+							}}
+						>
+							<Animated.View
 								style={{
-									backgroundColor: backgroundColor,
-									height: stickyHeaderHeight,
-									opacity: interpolate(scrollY, {
-										inputRange: [0, p],
-										outputRange: [0, 1],
-										extrapolate: 'clamp'
-									})
+									transform: [
+										{
+											translateY: interpolate(scrollY, {
+												inputRange: [0, p],
+												outputRange: [stickyHeaderHeight, 0],
+												extrapolate: 'clamp'
+											})
+										}
+									]
 								}}
 							>
-								<Animated.View
-									style={{
-										transform: [
-											{
-												translateY: interpolate(scrollY, {
-													inputRange: [0, p],
-													outputRange: [stickyHeaderHeight, 0],
-													extrapolate: 'clamp'
-												})
-											}
-										]
-									}}
-								>
-									{renderStickyHeader()}
-								</Animated.View>
+								{renderStickyHeader()}
 							</Animated.View>
+						</Animated.View>
 						: null}
 					{renderFixedHeader && renderFixedHeader()}
 				</View>
@@ -428,7 +428,7 @@ ParallaxScrollView.defaultProps = {
 	backgroundColor: '#000',
 	contentBackgroundColor: '#fff',
 	fadeOutForeground: true,
-	onChangeHeaderVisibility: () => {},
+	onChangeHeaderVisibility: () => { },
 	renderScrollComponent: props => <Animated.ScrollView {...props} />,
 	renderBackground: renderEmpty,
 	renderContentBackground: noRender,
