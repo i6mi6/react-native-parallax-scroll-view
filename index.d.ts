@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { ScrollViewProps } from 'react-native';
 
 declare class ParallaxScrollView extends React.Component<ParallaxScrollViewProps, {}> {
 
 }
 
-export interface ParallaxScrollViewProps {
+export interface ParallaxScrollViewProps extends ScrollViewProps {
     backgroundScrollSpeed?: number;
     backgroundColor?: string;
     contentBackgroundColor?: string;
