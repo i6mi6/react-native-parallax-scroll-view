@@ -40,6 +40,7 @@ const IPropTypes = {
 	renderScrollComponent: func,
 	renderStickyHeader: func,
 	stickyHeaderHeight: number,
+	stickyHeaderOffset: number,
 	contentContainerStyle: ViewPropTypes.style,
 	outputScaleValue: number
 }
@@ -87,6 +88,7 @@ class ParallaxScrollView extends Component {
 			renderForeground,
 			renderParallaxHeader,
 			renderScrollComponent,
+			stickyHeaderOffset,
 			renderStickyHeader,
 			stickyHeaderHeight,
 			style,
@@ -122,6 +124,7 @@ class ParallaxScrollView extends Component {
 			stickyHeaderHeight,
 			backgroundColor,
 			renderFixedHeader,
+			stickyHeaderOffset,
 			renderStickyHeader
 		})
 		const scrollElement = renderScrollComponent(scrollViewProps)
@@ -367,6 +370,7 @@ class ParallaxScrollView extends Component {
 		stickyHeaderHeight,
 		backgroundColor,
 		renderFixedHeader,
+		stickyHeaderOffset,
 		renderStickyHeader
 	}) {
 		const { viewWidth } = this.state
@@ -400,8 +404,8 @@ class ParallaxScrollView extends Component {
 									transform: [
 										{
 											translateY: interpolate(scrollY, {
-												inputRange: [0, p],
-												outputRange: [stickyHeaderHeight, 0],
+												inputRange: [0, p + (stickyHeaderOffset != null ? stickyHeaderOffset : 0)],
+												outputRange: [(stickyHeaderOffset != null ? parallaxHeaderHeight : stickyHeaderHeight), 0],
 												extrapolate: 'clamp'
 											})
 										}
@@ -435,6 +439,7 @@ ParallaxScrollView.defaultProps = {
 	renderParallaxHeader: renderEmpty, // Deprecated (will be removed in 0.18.0)
 	renderForeground: null,
 	stickyHeaderHeight: 0,
+	stickyHeaderOffset: null,
 	contentContainerStyle: null,
 	outputScaleValue: 5
 }
