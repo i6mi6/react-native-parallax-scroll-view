@@ -110,12 +110,12 @@ class ParallaxScrollView extends Component {
 			stickyHeaderHeight,
 			renderForeground: renderForeground || renderParallaxHeader
 		})
-		const bodyComponent = this._wrapChildren(children, {
-			contentBackgroundColor,
-			stickyHeaderHeight,
-			renderContentBackground,
-			contentContainerStyle
-		})
+		// const bodyComponent = this._wrapChildren(children, {
+		// 	contentBackgroundColor,
+		// 	stickyHeaderHeight,
+		// 	renderContentBackground,
+		// 	contentContainerStyle
+		// })
 		const footerSpacer = this._renderFooterSpacer({ contentBackgroundColor })
 		const maybeStickyHeader = this._maybeRenderStickyHeader({
 			parallaxHeaderHeight,
@@ -145,7 +145,7 @@ class ParallaxScrollView extends Component {
 						// onScroll: this._onScroll.bind(this)
 					},
 					foreground,
-					bodyComponent,
+					children,
 					footerSpacer
 				)}
 				{maybeStickyHeader}
