@@ -20,6 +20,8 @@ export interface ParallaxScrollViewProps {
     outputScaleValue?: number;
     style?: any;
     parallaxHeaderHeight?: number;
+    resetScroll: bool,
+	resetScrollSuccessfull: func
 }
 
 export class RenderBackgroundParams {
