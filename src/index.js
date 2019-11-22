@@ -41,7 +41,9 @@ const IPropTypes = {
 	renderStickyHeader: func,
 	stickyHeaderHeight: number,
 	contentContainerStyle: ViewPropTypes.style,
-	outputScaleValue: number
+	outputScaleValue: number,
+	resetScroll: bool,
+	resetScrollSuccessfull: func
 }
 
 class ParallaxScrollView extends Component {
@@ -175,6 +177,13 @@ class ParallaxScrollView extends Component {
 	/*
    * Private helpers
    */
+
+	componentWillUpdate(prevProps) {
+		if (prevProps.resetScroll !== this.props.resetScroll) {
+			this.getScrollResponder().scrollTo({x: 0, y: 0, animated: false})
+			this.props.resetScrollSuccessfull()
+		}
+	}
 
 	_onScroll(e) {
 		const {
@@ -436,7 +445,9 @@ ParallaxScrollView.defaultProps = {
 	renderForeground: null,
 	stickyHeaderHeight: 0,
 	contentContainerStyle: null,
-	outputScaleValue: 5
+	outputScaleValue: 5,
+	resetScroll: false,
+	resetScrollSuccessfull: () => {}
 }
 
 module.exports = ParallaxScrollView
