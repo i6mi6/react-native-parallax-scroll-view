@@ -184,7 +184,7 @@ class ParallaxScrollView extends Component {
 			onScroll: prevOnScroll = () => { }
 		} = this.props
 		this.props.scrollEvent && this.props.scrollEvent(e)
-		const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight)
+		const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight + 55)
 
 		// This optimization wont run, since we update the animation value directly in onScroll event
 		// this._maybeUpdateScrollPosition(e)
