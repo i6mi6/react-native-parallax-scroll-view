@@ -178,7 +178,7 @@ class ParallaxScrollView extends Component {
    * Private helpers
    */
 
-	componentWillUpdate(prevProps) {
+  	componentDidUpdate(prevProps) {
 		if (prevProps.resetScroll !== this.props.resetScroll) {
 			this.getScrollResponder().scrollTo({x: 0, y: 0, animated: false})
 			this.props.resetScrollSuccessfull()
