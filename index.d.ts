@@ -20,7 +20,7 @@ export interface ParallaxScrollViewProps {
     outputScaleValue?: number;
     style?: any;
     parallaxHeaderHeight?: number;
-    resetScroll?: bool;
+    resetScroll?: boolean;
     resetScrollSuccessfull?: () => void;
     navBarOverlapHeight?: number;
 	scrollViewBackgroundColor?: string;
