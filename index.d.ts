@@ -21,7 +21,9 @@ export interface ParallaxScrollViewProps {
     style?: any;
     parallaxHeaderHeight?: number;
     resetScroll: bool,
-	resetScrollSuccessfull: func
+    resetScrollSuccessfull: func
+    navBarOverlapHeight: number,
+	scrollViewBackgroundColor: string,
 }
 
 export class RenderBackgroundParams {
