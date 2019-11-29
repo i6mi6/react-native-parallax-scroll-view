@@ -43,7 +43,8 @@ const IPropTypes = {
 	contentContainerStyle: ViewPropTypes.style,
 	outputScaleValue: number,
 	resetScroll: bool,
-	resetScrollSuccessfull: func
+	resetScrollSuccessfull: func,
+	navBarOverlapHeight: number
 }
 
 class ParallaxScrollView extends Component {
@@ -193,7 +194,7 @@ class ParallaxScrollView extends Component {
 			onScroll: prevOnScroll = () => { }
 		} = this.props
 		this.props.scrollEvent && this.props.scrollEvent(e)
-		const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight + 55)
+		const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight + navBarOverlapHeight)
 
 		// This optimization wont run, since we update the animation value directly in onScroll event
 		// this._maybeUpdateScrollPosition(e)
@@ -447,7 +448,8 @@ ParallaxScrollView.defaultProps = {
 	contentContainerStyle: null,
 	outputScaleValue: 5,
 	resetScroll: false,
-	resetScrollSuccessfull: () => {}
+	resetScrollSuccessfull: () => {},
+	navBarOverlapHeight: 0
 }
 
 module.exports = ParallaxScrollView
