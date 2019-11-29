@@ -44,7 +44,8 @@ const IPropTypes = {
 	outputScaleValue: number,
 	resetScroll: bool,
 	resetScrollSuccessfull: func,
-	navBarOverlapHeight: number
+	navBarOverlapHeight: number,
+	scrollViewBackgroundColor: string,
 }
 
 class ParallaxScrollView extends Component {
@@ -138,7 +139,7 @@ class ParallaxScrollView extends Component {
 					scrollElement,
 					{
 						ref: SCROLLVIEW_REF,
-						style: [styles.scrollView, scrollElement.props.style],
+						style: [{backgroundColor: scrollViewBackgroundColor}, scrollElement.props.style],
 						scrollEventThrottle: 1,
 						// Using Native Driver greatly optimizes performance
 						onScroll: Animated.event(
@@ -449,7 +450,8 @@ ParallaxScrollView.defaultProps = {
 	outputScaleValue: 5,
 	resetScroll: false,
 	resetScrollSuccessfull: () => {},
-	navBarOverlapHeight: 0
+	navBarOverlapHeight: 0,
+	scrollViewBackgroundColor: 'transparent'
 }
 
 module.exports = ParallaxScrollView
