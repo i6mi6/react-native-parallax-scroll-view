@@ -96,6 +96,7 @@ class ParallaxScrollView extends Component {
 			style,
 			contentContainerStyle,
 			outputScaleValue,
+			scrollViewBackgroundColor,
 			...scrollViewProps
 		} = this.props
 
@@ -131,7 +132,7 @@ class ParallaxScrollView extends Component {
 		const scrollElement = renderScrollComponent(scrollViewProps)
 		return (
 			<View
-				style={[style, styles.container]}
+			style={[style, styles.container,{backgroundColor: scrollViewBackgroundColor}]}
 				onLayout={e => this._maybeUpdateViewDimensions(e)}
 			>
 				{background}
@@ -139,7 +140,7 @@ class ParallaxScrollView extends Component {
 					scrollElement,
 					{
 						ref: SCROLLVIEW_REF,
-						style: [{backgroundColor: scrollViewBackgroundColor}, scrollElement.props.style],
+						style: [style, scrollElement.props.style],
 						scrollEventThrottle: 1,
 						// Using Native Driver greatly optimizes performance
 						onScroll: Animated.event(
@@ -192,6 +193,7 @@ class ParallaxScrollView extends Component {
 			parallaxHeaderHeight,
 			stickyHeaderHeight,
 			onChangeHeaderVisibility,
+			navBarOverlapHeight,
 			onScroll: prevOnScroll = () => { }
 		} = this.props
 		this.props.scrollEvent && this.props.scrollEvent(e)
