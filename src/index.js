@@ -141,9 +141,19 @@ class ParallaxScrollView extends Component {
 						onScroll: Animated.event(
 							[{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
 							{ useNativeDriver: true, listener: this._onScroll.bind(this) }
-						)
+						),
+						onContentSizeChange: (contentWidth, contentHeight) => {
+							if (contentHeight != this._mainHeight) {
+								const footerHeight = Math.max(0, this.state.viewHeight - this._mainHeight - stickyHeaderHeight);// this._mainHeight set by onLayout
+								if (this._footerHeight !== footerHeight) {
+									this._footerComponent.setNativeProps({ style: { height: footerHeight } });
+									this._footerHeight = footerHeight;
+								}
+							}
+						}
 						// onScroll: this._onScroll.bind(this)
 					},
+					
 					foreground,
 					bodyComponent,
 					footerSpacer
@@ -211,13 +221,18 @@ class ParallaxScrollView extends Component {
 	}
 
 	_maybeUpdateViewDimensions(e) {
-		const { nativeEvent: { layout: { width, height } } } = e
-
+		const { stickyHeaderHeight } = this.props;
+		const { nativeEvent: { layout: { width, height } } } = e;
 		if (width !== this.state.viewWidth || height !== this.state.viewHeight) {
+			const footerHeight = Math.max(0, height - this.mainHeight - stickyHeaderHeight);// this.mainHeight set by onLayout
+			if (this._footerHeight !== footerHeight) {
+				this._footerComponent.setNativeProps({ style: { height: footerHeight } });
+				this._footerHeight = footerHeight;
+			}
 			this.setState({
 				viewWidth: width,
 				viewHeight: height
-			})
+			});
 		}
 	}
 
