@@ -158,7 +158,7 @@ class ParallaxScrollView extends Component {
    * Expose `ScrollView` API so this component is composable with any component that expects a `ScrollView`.
    */
 	getScrollResponder() {
-		return this.refs[SCROLLVIEW_REF]._component.getScrollResponder()
+		return this.refs[SCROLLVIEW_REF].getScrollResponder()
 	}
 	getScrollableNode() {
 		return this.getScrollResponder().getScrollableNode()
