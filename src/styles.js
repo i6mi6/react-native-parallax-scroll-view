@@ -3,7 +3,8 @@ const StyleSheet = require('react-native').StyleSheet;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    overflow: 'hidden'
   },
   parallaxHeaderContainer: {
     backgroundColor: 'transparent',
