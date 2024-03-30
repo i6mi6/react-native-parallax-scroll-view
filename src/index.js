@@ -41,8 +41,12 @@ const IPropTypes = {
 	renderScrollComponent: func,
 	renderStickyHeader: func,
 	stickyHeaderHeight: number,
-	contentContainerStyle: ViewPropTypes.style,
-	outputScaleValue: number
+	contentContainerStyle: View.propTypes.style,
+	outputScaleValue: number,
+	parallaxHeaderContainerStyle: View.propTypes.style,
+	parallaxHeaderStyle: View.propTypes.style,
+	backgroundImageStyle: View.propTypes.style,
+	stickyHeaderStyle: View.propTypes.style
 }
 
 class ParallaxScrollView extends Component {
@@ -238,6 +242,7 @@ class ParallaxScrollView extends Component {
 			<Animated.View
 				style={[
 					styles.backgroundImage,
+					((this.props.backgroundImageStyle)?this.props.backgroundImageStyle:null),
 					{
 						backgroundColor: backgroundColor,
 						height: parallaxHeaderHeight,
@@ -285,10 +290,14 @@ class ParallaxScrollView extends Component {
 		const { scrollY } = this
 		const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight)
 		return (
-			<View style={styles.parallaxHeaderContainer}>
+			<View style={[
+				styles.parallaxHeaderContainer,
+				(this.props.parallaxHeaderContainerStyle)?this.props.parallaxHeaderContainerStyle:null
+			]}>
 				<Animated.View
 					style={[
 						styles.parallaxHeader,
+						((this.props.parallaxHeaderStyle)?this.props.parallaxHeaderStyle:null),
 						{
 							height: parallaxHeaderHeight,
 							opacity: fadeOutForeground
@@ -378,6 +387,7 @@ class ParallaxScrollView extends Component {
 				<View
 					style={[
 						styles.stickyHeader,
+						((this.props.stickyHeaderStyle)?this.props.stickyHeaderStyle:null),
 						{
 							width: viewWidth,
 							...(stickyHeaderHeight ? { height: stickyHeaderHeight } : null)
@@ -437,7 +447,11 @@ ParallaxScrollView.defaultProps = {
 	renderForeground: null,
 	stickyHeaderHeight: 0,
 	contentContainerStyle: null,
-	outputScaleValue: 5
+	outputScaleValue: 5,
+	parallaxHeaderContainerStyle: null,
+	parallaxHeaderStyle: null,
+	backgroundImageStyle: null,
+	stickyHeaderStyle: null
 }
 
 module.exports = ParallaxScrollView
