@@ -1,5 +1,7 @@
 [![](https://img.shields.io/npm/dm/react-native-parallax-scroll-view.svg?style=flat-square)](https://www.npmjs.com/package/react-native-parallax-scroll-view)
 
+[![NPM](https://nodei.co/npm/react-native-parallax-scroll-view.png)](https://www.npmjs.com/package/react-native-parallax-scroll-view)
+
 # Rodrigocs - Animated Driver
 
 This component now uses Native Driver by default.
@@ -102,12 +104,13 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | Property | Type | Required | Description |
 | -------- | ---- | -------- | ----------- |
 | `backgroundColor` | `string` | No | The color of the header background. Defaults to `#000`) |
-| `backgroundSpeed` | `number` | No | The speed factor that the background moves at relative to the foreground. Defaults to 5. |
+| `backgroundScrollSpeed` | `number` | No | The speed factor that the background moves at relative to the foreground. Defaults to 5. |
 | `contentBackgroundColor` | `string` | No | This is the background color of the content. (Defaults to `'#fff'`) |
 | `fadeOutForeground` | `bool` | No | If `true`, the foreground will fade out as the user scrolls up. (Defaults to `true`) |
 | `onChangeHeaderVisibility` | `func` | No | A callback function that is invoked when the parallax header is hidden or shown (as the user is scrolling). Function is called with a `boolean` value to indicate whether header is visible or not. |
 | **`parallaxHeaderHeight`** | `number` | **Yes** |This is the height of parallax header. |
 | `renderBackground` | `func` | No | This renders the background of the parallax header. Can be used to display cover images for example. (Defaults to an opaque background using `backgroundColor`) |
+| `renderContentBackground` | `func` | No | This renders the background of the content. Can be used to display cover images for example. (Defaults to a non-visible `View`) |
 | `renderFixedHeader` | `func` | No | This renders an optional fixed header that will always be visible and fixed to the top of the view (and sticky header). You should set its height and width appropriately. |
 | `renderForeground` |  `func` | No |This renders the foreground header that moves at same speed as scroll content. |
 | `renderScrollComponent` | `func` | No | A function with input `props` and outputs an `Animated.ScrollView`-like component in which the content is rendered. This is useful if you want to provide your own scrollable component, remember however to make it an Animated component. (See: [https://github.com/exponentjs/react-native-scrollable-mixin](https://github.com/exponentjs/react-native-scrollable-mixin)) (By default, returns a `Animated.ScrollView` with the given props) |
@@ -119,6 +122,7 @@ The `ParallaxScrollView` component adds a few additional properties, as describe
 | `parallaxHeaderStyle` | `object` | No | These styles will be applied to the parallax header view content  |
 | `backgroundImageStyle` | `object` | No | These styles will be applied to the background image header view content  |
 | `stickyHeaderStyle` | `object` | No | These styles will be applied to the sticky headerStyle view content  |
+| `scrollEvent` | `func` | No | Callback to recieve the animated scroll event values |
 
 ## Latest changes
 
