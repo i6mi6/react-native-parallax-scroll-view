@@ -41,12 +41,12 @@ const IPropTypes = {
 	renderScrollComponent: func,
 	renderStickyHeader: func,
 	stickyHeaderHeight: number,
-	contentContainerStyle: View.propTypes.style,
+	contentContainerStyle: ViewPropTypes.style,
 	outputScaleValue: number,
-	parallaxHeaderContainerStyle: View.propTypes.style,
-	parallaxHeaderStyle: View.propTypes.style,
-	backgroundImageStyle: View.propTypes.style,
-	stickyHeaderStyle: View.propTypes.style
+	parallaxHeaderContainerStyle: ViewPropTypes.style,
+	parallaxHeaderStyle: ViewPropTypes.style,
+	backgroundImageStyle: ViewPropTypes.style,
+	stickyHeaderStyle: ViewPropTypes.style
 }
 
 class ParallaxScrollView extends Component {
