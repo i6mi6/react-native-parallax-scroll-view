@@ -1,38 +1,38 @@
 {
-	"name": "react-native-parallax-scroll-view",
-	"version": "1.0.0",
-	"description": "A ScrollView-like component with parallax and sticky header support",
-	"main": "dist/index.js",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/i6mi6/react-native-parallax-scroll-view"
-	},
+    "name": "react-native-parallax-scroll-view",
+    "version": "1.0.0",
+    "description": "A ScrollView-like component with parallax and sticky header support",
+    "main": "dist/index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/i6mi6/react-native-parallax-scroll-view"
+    },
     "scripts": {
         "build": "tsc"
     },
-	"files": [
-		"src",
-		"demo.ios.gif",
-		"demo.android.20160117.gif",
-		"README.md",
-		"LICENSE"
-	],
-	"keywords": [
-		"react-native",
-		"react",
-		"parallax",
-		"scrollable",
-		"scrollview",
-		"sticky",
-		"react-component",
-		"ios",
-		"android"
-	],
-	"author": "Jack Hsu",
-	"license": "ISC",
-	"devDependencies": {
-		"@types/react": "^18.2.73",
-		"@types/react-native": "^0.70.19",
-		"typescript": "^5.4.3"
-	}
+    "files": [
+        "src",
+        "demo.ios.gif",
+        "demo.android.20160117.gif",
+        "README.md",
+        "LICENSE"
+    ],
+    "keywords": [
+        "react-native",
+        "react",
+        "parallax",
+        "scrollable",
+        "scrollview",
+        "sticky",
+        "react-component",
+        "ios",
+        "android"
+    ],
+    "author": "Jack Hsu",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/react": "^18.2.73",
+        "@types/react-native": "^0.70.19",
+        "typescript": "^5.4.3"
+    }
 }
