@@ -1,8 +1,8 @@
 {
 	"name": "react-native-parallax-scroll-view",
-	"version": "0.21.3",
+	"version": "1.0.0",
 	"description": "A ScrollView-like component with parallax and sticky header support",
-	"main": "src/index.js",
+	"main": "dist/index.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/jaysoo/react-native-parallax-scroll-view"
@@ -30,5 +30,10 @@
 	"dependencies": {
 		"deprecated-react-native-prop-types": "^2.3.0",
 		"prop-types": "^15.6.0"
+	},
+	"devDependencies": {
+		"@types/react": "^18.2.73",
+		"@types/react-native": "^0.70.19",
+		"typescript": "^5.4.3"
 	}
 }
