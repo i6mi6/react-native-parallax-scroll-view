@@ -5,8 +5,11 @@
 	"main": "dist/index.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/jaysoo/react-native-parallax-scroll-view"
+		"url": "https://github.com/i6mi6/react-native-parallax-scroll-view"
 	},
+    "scripts": {
+        "build": "tsc"
+    },
 	"files": [
 		"src",
 		"demo.ios.gif",
@@ -27,10 +30,6 @@
 	],
 	"author": "Jack Hsu",
 	"license": "ISC",
-	"dependencies": {
-		"deprecated-react-native-prop-types": "^2.3.0",
-		"prop-types": "^15.6.0"
-	},
 	"devDependencies": {
 		"@types/react": "^18.2.73",
 		"@types/react-native": "^0.70.19",
