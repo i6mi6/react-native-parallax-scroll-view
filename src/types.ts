@@ -1,8 +1,4 @@
-import * as React from 'react';
-
-declare class ParallaxScrollView extends React.Component<ParallaxScrollViewProps, {}> {
-
-}
+import {JSX} from 'react';
 
 export interface ParallaxScrollViewProps {
     backgroundScrollSpeed?: number;
@@ -22,7 +18,7 @@ export interface ParallaxScrollViewProps {
     parallaxHeaderHeight?: number;
 }
 
-export class RenderBackgroundParams {
+export interface RenderBackgroundParams {
     fadeOutForeground: any;
     backgroundScrollSpeed: number;
     backgroundColor: string;
@@ -31,5 +27,3 @@ export class RenderBackgroundParams {
     renderBackground: () => void;
     outputScaleValue: number;
 }
-
-export default ParallaxScrollView;
