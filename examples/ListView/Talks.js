@@ -52,7 +52,7 @@ class Talks extends Component {
          )}
         renderScrollComponent={props => (
           <ParallaxScrollView
-            onScroll={onScroll}
+            onScroll={props.onScroll}
 
             headerBackgroundColor="#333"
             stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
