@@ -159,8 +159,8 @@ class ParallaxScrollView extends Component {
 	}
 
 	/*
-   * Expose `ScrollView` API so this component is composable with any component that expects a `ScrollView`.
-   */
+	 * Expose `ScrollView` API so this component is composable with any component that expects a `ScrollView`.
+	 */
 	getScrollResponder() {
 		return this.refs[SCROLLVIEW_REF]._component.getScrollResponder()
 	}
@@ -178,8 +178,8 @@ class ParallaxScrollView extends Component {
 	}
 
 	/*
-   * Private helpers
-   */
+	 * Private helpers
+	 */
 
 	_onScroll(e) {
 		const {
@@ -258,7 +258,7 @@ class ParallaxScrollView extends Component {
 							{
 								translateY: interpolate(scrollY, {
 									inputRange: [0, p],
-									outputRange: [0, -(p / backgroundScrollSpeed)],
+									outputRange: [0, backgroundScrollSpeed === 0 ? 0 : -(p / backgroundScrollSpeed)],
 									extrapolateRight: 'extend',
 									extrapolateLeft: 'clamp'
 								})
@@ -381,6 +381,7 @@ class ParallaxScrollView extends Component {
 	}) {
 		const { viewWidth } = this.state
 		const { scrollY } = this
+		const { backgroundScrollSpeed } = this.props;
 		if (renderStickyHeader || renderFixedHeader) {
 			const p = pivotPoint(parallaxHeaderHeight, stickyHeaderHeight)
 			return (
@@ -412,7 +413,7 @@ class ParallaxScrollView extends Component {
 										{
 											translateY: interpolate(scrollY, {
 												inputRange: [0, p],
-												outputRange: [stickyHeaderHeight, 0],
+												outputRange: [backgroundScrollSpeed === 0 ? 0 : stickyHeaderHeight, 0],
 												extrapolate: 'clamp'
 											})
 										}
