@@ -3,7 +3,7 @@ import { Animated, Dimensions, View } from 'react-native'
 
 const styles = require('./styles')
 
-import { bool, func, number, string } from 'prop-types'
+import { bool, func, number, string, object  } from 'prop-types'
 
 const window = Dimensions.get('window')
 
