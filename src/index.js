@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Animated, Dimensions, View } from 'react-native'
-import { ViewPropTypes } from 'deprecated-react-native-prop-types'
 
 const styles = require('./styles')
 
@@ -41,12 +40,12 @@ const IPropTypes = {
 	renderScrollComponent: func,
 	renderStickyHeader: func,
 	stickyHeaderHeight: number,
-	contentContainerStyle: ViewPropTypes.style,
+	contentContainerStyle: object,
 	outputScaleValue: number,
-	parallaxHeaderContainerStyle: ViewPropTypes.style,
-	parallaxHeaderStyle: ViewPropTypes.style,
-	backgroundImageStyle: ViewPropTypes.style,
-	stickyHeaderStyle: ViewPropTypes.style
+	parallaxHeaderContainerStyle: object,
+	parallaxHeaderStyle: object,
+	backgroundImageStyle: object,
+	stickyHeaderStyle: object
 }
 
 class ParallaxScrollView extends Component {
