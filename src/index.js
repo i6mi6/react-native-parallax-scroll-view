@@ -8,7 +8,7 @@ import { bool, func, number, string } from 'prop-types'
 
 const window = Dimensions.get('window')
 
-const SCROLLVIEW_REF = 'ScrollView'
+// const SCROLLVIEW_REF = 'ScrollView' pattern no longer works
 
 const pivotPoint = (a, b) => a - b
 
@@ -68,6 +68,8 @@ class ParallaxScrollView extends Component {
 			viewWidth: window.width
 		}
 		this.scrollY = new Animated.Value(0)
+		 // Add this:
+    	this.scrollViewRef = React.createRef(); // it resolve string error instead of use 'ScrollView', now we use this.scrollViewRef = React.createRef();
 		this._footerComponent = { setNativeProps() { } } // Initial stub
 		this._footerHeight = 0
 	}
@@ -139,7 +141,7 @@ class ParallaxScrollView extends Component {
 				{React.cloneElement(
 					scrollElement,
 					{
-						ref: SCROLLVIEW_REF,
+						 ref: this.scrollViewRef, // Changed from SCROLLVIEW_REF
 						style: [styles.scrollView, scrollElement.props.style],
 						scrollEventThrottle: 1,
 						// Using Native Driver greatly optimizes performance
@@ -161,20 +163,21 @@ class ParallaxScrollView extends Component {
 	/*
    * Expose `ScrollView` API so this component is composable with any component that expects a `ScrollView`.
    */
+	// Update all methods that access refs
 	getScrollResponder() {
-		return this.refs[SCROLLVIEW_REF]._component.getScrollResponder()
+		return this.scrollViewRef.current?._component?.getScrollResponder()
 	}
 	getScrollableNode() {
-		return this.getScrollResponder().getScrollableNode()
+		return this.getScrollResponder()?.getScrollableNode()
 	}
 	getInnerViewNode() {
-		return this.getScrollResponder().getInnerViewNode()
+		return this.getScrollResponder()?.getInnerViewNode()
 	}
 	scrollTo(...args) {
-		this.getScrollResponder().scrollTo(...args)
+		this.getScrollResponder()?.scrollTo(...args)
 	}
 	setNativeProps(props) {
-		this.refs[SCROLLVIEW_REF].setNativeProps(props)
+		this.scrollViewRef.current?.setNativeProps(props); // also this one 
 	}
 
 	/*
@@ -364,7 +367,7 @@ class ParallaxScrollView extends Component {
 			<View
 				ref={ref => {
 					if (ref) {
-						this._footerComponent = ref;
+						ref={this._footerComponent} // also this one 
 					}
 				}}
 				style={{ backgroundColor: contentBackgroundColor }}
